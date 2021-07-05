@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tag2 on Jiang&#39;s Blog</title>
+    <link>https://wallisnow.github.io/tags/tag2/</link>
+    <description>Recent content in tag2 on Jiang&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 02 Jul 2021 17:05:16 +0300</lastBuildDate><atom:link href="https://wallisnow.github.io/tags/tag2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>https://wallisnow.github.io/2021/07/my-first-post/</link>
+      <pubDate>Fri, 02 Jul 2021 17:05:16 +0300</pubDate>
+      
+      <guid>https://wallisnow.github.io/2021/07/my-first-post/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
