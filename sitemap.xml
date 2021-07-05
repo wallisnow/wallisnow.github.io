@@ -2,8 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://unprobug.com/tags/blog/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/categories/blog/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
     <loc>https://unprobug.com/categories/</loc>
-    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/tags/domain/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/2021/07/godaddy%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D%E5%B9%B6%E7%BB%91%E5%AE%9A%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/tags/hugo/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/categories/hugo/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/post/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/tags/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/categories/java/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
@@ -11,19 +38,10 @@
     <loc>https://unprobug.com/tags/java/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
   </url><url>
-    <loc>https://unprobug.com/</loc>
-    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/post/</loc>
-    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
     <loc>https://unprobug.com/categories/spring/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/tags/spring/</loc>
-    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/tags/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/categories/webflux/</loc>
