@@ -1,58 +1,123 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml-stylesheet type="text/xsl" href="https://unprobug.com/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
   <url>
     <loc>https://unprobug.com/tags/blog/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/blog/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/domain/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/hugo/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/hugo/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/</loc>
-    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/post/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/2021/07/%E5%9C%A8godaddy%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D%E5%B9%B6%E7%BB%91%E5%AE%9A%E5%8D%9A%E5%AE%A2/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unprobug.com/</loc>
     <lastmod>2021-07-05T18:08:23+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://unprobug.com/post/blog/hugo/how-to-buy-a-domain-name/</loc>
+    <lastmod>2021-07-05T18:08:23+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/java/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/java/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/spring/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/spring/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/categories/webflux/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://unprobug.com/tags/webflux/</loc>
     <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/2021/07/%E5%A6%82%E4%BD%95%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</loc>
-    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/archives/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
+  
+  <url>
+    <loc>https://unprobug.com/post/java/spring/%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2021-07-02T11:55:41+03:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
 </urlset>

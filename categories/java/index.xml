@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on Jiang&#39;s Blog</title>
+    <title>Java on unprobug</title>
     <link>https://unprobug.com/categories/java/</link>
-    <description>Recent content in Java on Jiang&#39;s Blog</description>
+    <description>Recent content in Java on unprobug</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Fri, 02 Jul 2021 11:55:41 +0300</lastBuildDate><atom:link href="https://unprobug.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何找出webflux中的阻塞方法</title>
-      <link>https://unprobug.com/2021/07/%E5%A6%82%E4%BD%95%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</link>
+      <link>https://unprobug.com/post/java/spring/%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</link>
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
-      <guid>https://unprobug.com/2021/07/%E5%A6%82%E4%BD%95%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</guid>
+      <guid>https://unprobug.com/post/java/spring/%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</guid>
       <description></description>
     </item>
     
