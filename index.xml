@@ -22,7 +22,7 @@
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
       <guid>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</guid>
-      <description>往往这些操作是需要特定权限的, 确保操作时你是有操作权限 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的</description>
+      <description>往往这些操作是需要特定权限的, 确保操作时你是有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前</description>
     </item>
     
     <item>
