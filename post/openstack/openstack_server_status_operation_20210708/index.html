@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Jiang WU" /><meta name="description" content="往往这些操作是需要特定权限的, 确保操作时你是有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="Jiang WU" /><meta name="description" content="往往这些操作是需要特定权限的, 确保操作时你拥有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -40,19 +40,19 @@
 
 
 <meta property="og:title" content="[openstack] 如何开关vm及类似操作命令" />
-<meta property="og:description" content="往往这些操作是需要特定权限的, 确保操作时你是有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前" />
+<meta property="og:description" content="往往这些操作是需要特定权限的, 确保操作时你拥有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2021-07-02T11:55:41+03:00" />
 <meta property="article:modified_time" content="2021-07-02T11:55:41+03:00" />
 
 <meta itemprop="name" content="[openstack] 如何开关vm及类似操作命令">
-<meta itemprop="description" content="往往这些操作是需要特定权限的, 确保操作时你是有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前"><meta itemprop="datePublished" content="2021-07-02T11:55:41+03:00" />
+<meta itemprop="description" content="往往这些操作是需要特定权限的, 确保操作时你拥有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前"><meta itemprop="datePublished" content="2021-07-02T11:55:41+03:00" />
 <meta itemprop="dateModified" content="2021-07-02T11:55:41+03:00" />
 <meta itemprop="wordCount" content="343">
-<meta itemprop="keywords" content="openstack常用操作,server," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="openstack,openstack常用操作,server," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[openstack] 如何开关vm及类似操作命令"/>
-<meta name="twitter:description" content="往往这些操作是需要特定权限的, 确保操作时你是有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前"/>
+<meta name="twitter:description" content="往往这些操作是需要特定权限的, 确保操作时你拥有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -156,7 +156,7 @@
 </div>
     <div class="post-content">
       <blockquote>
-<p>往往这些操作是需要特定权限的, 确保操作时你是有操作权限</p>
+<p>往往这些操作是需要特定权限的, 确保操作时你拥有操作权限</p>
 </blockquote>
 <h1 id="1-暂停取消暂停">1. 暂停/取消暂停</h1>
 <ul>
@@ -302,6 +302,7 @@ $ openstack server stop myInstance
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
+          <a href="/tags/openstack/">openstack</a>
           <a href="/tags/openstack%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">openstack常用操作</a>
           <a href="/tags/server/">server</a>
           </div>
@@ -383,6 +384,17 @@ $ openstack server stop myInstance
 
 <script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-QNSJ3VFPDD', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
