@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Unpro BUG</title>
     <link>https://unprobug.com/post/</link>
     <description>Recent content in Posts on Unpro BUG</description>
+    <image>
+      <url>https://unprobug.com/papermod-cover.png</url>
+      <link>https://unprobug.com/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <copyright>Jiang WU</copyright>
     <lastBuildDate>Mon, 05 Jul 2021 18:08:23 +0300</lastBuildDate><atom:link href="https://unprobug.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[博客搭建 1]-在goDaddy购买域名并绑定博客</title>
@@ -23,7 +25,8 @@
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
       <guid>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</guid>
-      <description>往往这些操作是需要特定权限的, 确保操作时你拥有操作权限 1. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前</description>
+      <description>往往这些操作是需要特定权限的, 确保操作时你拥有操作权限
+ 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 关机/开机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10.</description>
     </item>
     
     <item>

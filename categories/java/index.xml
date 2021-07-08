@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Java on Unpro BUG</title>
+    <title>java on Unpro BUG</title>
     <link>https://unprobug.com/categories/java/</link>
-    <description>Recent content in Java on Unpro BUG</description>
+    <description>Recent content in java on Unpro BUG</description>
+    <image>
+      <url>https://unprobug.com/papermod-cover.png</url>
+      <link>https://unprobug.com/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <copyright>Jiang WU</copyright>
     <lastBuildDate>Fri, 02 Jul 2021 11:55:41 +0300</lastBuildDate><atom:link href="https://unprobug.com/categories/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[Spring][Webflux]如何找出webflux中的阻塞方法</title>
