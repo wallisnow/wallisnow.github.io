@@ -2,34 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://unprobug.com/cn/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://unprobug.com/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="cn"
-                href="https://unprobug.com/cn/"
-                />
-  </url><url>
-    <loc>https://unprobug.com/cn/categories/</loc>
+    <loc>https://unprobug.com/me/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -47,16 +20,43 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="me"
                 href="https://unprobug.com/me/categories/"
+                />
+  </url><url>
+    <loc>https://unprobug.com/me/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr"
+                href="https://unprobug.com/fr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fi"
+                href="https://unprobug.com/fi/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="cn"
-                href="https://unprobug.com/cn/categories/"
+                href="https://unprobug.com/cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="me"
+                href="https://unprobug.com/me/"
                 />
   </url><url>
-    <loc>https://unprobug.com/cn/series/</loc>
+    <loc>https://unprobug.com/me/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -74,16 +74,16 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/series/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="cn"
                 href="https://unprobug.com/cn/series/"
                 />
+    <xhtml:link
+                rel="alternate"
+                hreflang="me"
+                href="https://unprobug.com/me/series/"
+                />
   </url><url>
-    <loc>https://unprobug.com/cn/tags/</loc>
+    <loc>https://unprobug.com/me/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -101,13 +101,13 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/tags/"
+                hreflang="cn"
+                href="https://unprobug.com/cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="cn"
-                href="https://unprobug.com/cn/tags/"
+                hreflang="me"
+                href="https://unprobug.com/me/tags/"
                 />
   </url>
 </urlset>
