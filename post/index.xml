@@ -8,7 +8,7 @@
     <language>zh-cn</language>
     <lastBuildDate>Mon, 05 Jul 2021 18:08:23 +0300</lastBuildDate><atom:link href="https://unprobug.com/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>博客搭建 1 - 在goDaddy购买域名并绑定博客</title>
+      <title>[博客搭建 1]-在goDaddy购买域名并绑定博客</title>
       <link>https://unprobug.com/post/blog/hugo/how-to-buy-a-domain-name/</link>
       <pubDate>Mon, 05 Jul 2021 18:08:23 +0300</pubDate>
       
@@ -17,12 +17,21 @@
     </item>
     
     <item>
-      <title>如何找出webflux中的阻塞方法</title>
+      <title>[Spring][Webflux]如何找出webflux中的阻塞方法</title>
       <link>https://unprobug.com/post/java/spring/%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</link>
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
       <guid>https://unprobug.com/post/java/spring/%E6%89%BE%E5%87%BAwebflux%E4%B8%AD%E7%9A%84%E9%98%BB%E5%A1%9E%E6%96%B9%E6%B3%95/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>[openstack] 如何开关vm及类似操作命令</title>
+      <link>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</guid>
+      <description>1. 往往这些操作是需要特定权限的, 确保操作是你是有操作权限的. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂</description>
     </item>
     
   </channel>
