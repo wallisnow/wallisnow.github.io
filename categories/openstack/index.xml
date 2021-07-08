@@ -6,6 +6,7 @@
     <description>Recent content in openstack on Unpro BUG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <copyright>Jiang WU</copyright>
     <lastBuildDate>Fri, 02 Jul 2021 11:55:41 +0300</lastBuildDate><atom:link href="https://unprobug.com/categories/openstack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[openstack] 如何开关vm及类似操作命令</title>
