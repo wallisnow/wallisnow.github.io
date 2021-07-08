@@ -5,11 +5,12 @@
     <link>https://unprobug.com/tags/openstack/</link>
     <description>Recent content in openstack on Unpro BUG</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://unprobug.com/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 02 Jul 2021 11:55:41 +0300</lastBuildDate><atom:link href="https://unprobug.com/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[openstack] 如何开关vm及类似操作命令</title>
       <link>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
       <guid>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</guid>
       <description>1. 往往这些操作是需要特定权限的, 确保操作是你是有操作权限的. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂</description>

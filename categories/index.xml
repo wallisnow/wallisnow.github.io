@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>openstack</title>
+      <link>https://unprobug.com/categories/openstack/</link>
+      <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
+      
+      <guid>https://unprobug.com/categories/openstack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spring</title>
       <link>https://unprobug.com/categories/spring/</link>
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
@@ -49,15 +58,6 @@
       <pubDate>Fri, 02 Jul 2021 11:55:41 +0300</pubDate>
       
       <guid>https://unprobug.com/categories/webflux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>openstack</title>
-      <link>https://unprobug.com/categories/openstack/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://unprobug.com/categories/openstack/</guid>
       <description></description>
     </item>
     
