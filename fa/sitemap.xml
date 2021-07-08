@@ -15,6 +15,16 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fi"
+                href="https://unprobug.com/fi/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="fa"
                 href="https://unprobug.com/fa/categories/"
                 />
@@ -29,6 +39,16 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://unprobug.com/fr/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fi"
+                href="https://unprobug.com/fi/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -49,6 +69,16 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fi"
+                href="https://unprobug.com/fi/series/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="fa"
                 href="https://unprobug.com/fa/series/"
                 />
@@ -63,6 +93,16 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://unprobug.com/fr/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fi"
+                href="https://unprobug.com/fi/tags/"
                 />
     <xhtml:link
                 rel="alternate"
