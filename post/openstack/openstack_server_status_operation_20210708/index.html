@@ -49,8 +49,8 @@
 <meta itemprop="name" content="[openstack] 如何开关vm及类似操作命令">
 <meta itemprop="description" content="1. 往往这些操作是需要特定权限的, 确保操作是你是有操作权限的. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂"><meta itemprop="datePublished" content="2021-07-02T11:55:41+03:00" />
 <meta itemprop="dateModified" content="2021-07-02T11:55:41+03:00" />
-<meta itemprop="wordCount" content="345">
-<meta itemprop="keywords" content="openstack,server," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="340">
+<meta itemprop="keywords" content="openstack常用操作,server," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[openstack] 如何开关vm及类似操作命令"/>
 <meta name="twitter:description" content="1. 往往这些操作是需要特定权限的, 确保操作是你是有操作权限的. 暂停/取消暂停 这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂"/>
 
@@ -139,14 +139,24 @@
     <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content always-active">
-    <nav id="TableOfContents"></nav>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#暂停取消暂停">暂停/取消暂停</a></li>
+    <li><a href="#挂起取消挂起">挂起/取消挂起</a></li>
+    <li><a href="#关机开机">关机/开机</a></li>
+    <li><a href="#检查机器状态">检查机器状态</a>
+      <ul>
+        <li><a href="#简单查看-即从所有实例中找目标机器">简单查看, 即从所有实例中找目标机器</a></li>
+        <li><a href="#查看详细信息">查看详细信息</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
   </div>
 </div>
     <div class="post-content">
       <p><em>1. 往往这些操作是需要特定权限的, 确保操作是你是有操作权限的.</em></p>
-<blockquote>
-<p>暂停/取消暂停</p>
-</blockquote>
+<h1 id="暂停取消暂停">暂停/取消暂停</h1>
 <ul>
 <li>这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态</li>
 </ul>
@@ -160,9 +170,7 @@
 $ openstack server unpause myInstance
 </code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>挂起/取消挂起</p>
-</blockquote>
+</div><h1 id="挂起取消挂起">挂起/取消挂起</h1>
 <ul>
 <li>这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来</li>
 </ul>
@@ -176,9 +184,7 @@ $ openstack server unpause myInstance
 $ openstack server resume myInstance
 </code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>停机/启动</p>
-</blockquote>
+</div><h1 id="关机开机">关机/开机</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -189,9 +195,27 @@ $ openstack server resume myInstance
 $ openstack server stop myInstance
 </code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>检查机器状态</p>
-</blockquote>
+</div><h1 id="检查机器状态">检查机器状态</h1>
+<h2 id="简单查看-即从所有实例中找目标机器">简单查看, 即从所有实例中找目标机器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ openstack server list | grep myInstance
++--------------------------------------+-------------+---------+----------------------------------------------------------------------------------------------
+| ID                                   | Name        | Status  | Networks                                                                                     
++--------------------------------------+-------------+---------+----------------------------------------------------------------------------------------------
+| 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01   | SHUTOFF | internal-net-01=10.0.10.75, fd00::17:1111::2f7 
+....
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="查看详细信息">查看详细信息</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -213,27 +237,9 @@ $ openstack server stop myInstance
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">//简单查看, 即从所有实例中找目标机器
-$ openstack server list | grep myInstance
-+--------------------------------------+-------------+---------+----------------------------------------------------------------------------------------------
-| ID                                   | Name        | Status  | Networks                                                                                     
-+--------------------------------------+-------------+---------+----------------------------------------------------------------------------------------------
-| 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01   | SHUTOFF | internal-net-01=10.0.10.75, fd00::17:1111::2f7 
-....
-
-//详细信息
-$ openstack server show master-01
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ openstack server show master-01
 +-------------------------------------+------------------------------------------------------------------+
 | Field                               | Value                                                            |
 +-------------------------------------+------------------------------------------------------------------+
@@ -294,7 +300,7 @@ $ openstack server show master-01
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/tags/openstack/">openstack</a>
+          <a href="/tags/openstack%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">openstack常用操作</a>
           <a href="/tags/server/">server</a>
           </div>
       <nav class="post-nav">
