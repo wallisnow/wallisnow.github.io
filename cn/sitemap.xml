@@ -56,6 +56,18 @@
                 href="https://unprobug.com/cn/categories/"
                 />
   </url><url>
+    <loc>https://unprobug.com/cn/copyright/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/copyright/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/copyright/"
+                />
+  </url><url>
     <loc>https://unprobug.com/cn/series/</loc>
     <xhtml:link
                 rel="alternate"
