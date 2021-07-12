@@ -9,7 +9,16 @@
       <link>https://unprobug.com/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kubernetes</title>
+      <link>https://unprobug.com/categories/kubernetes/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unprobug.com/categories/kubernetes/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>blog</title>
       <link>https://unprobug.com/categories/blog/</link>

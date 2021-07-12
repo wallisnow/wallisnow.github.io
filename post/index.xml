@@ -9,7 +9,22 @@
       <link>https://unprobug.com/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[kubernetes] kustomize 入门例子</title>
+      <link>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</guid>
+      <description>0. 简介 kustomize 形如customize, 也就是k8s+customize, 它是kube资源描述文件的一种抽象工具.
+ 官方地址: https://kustomize.io/
+ 1. 为什么会用 kustomize kustomize它作用类似Helm, 它的实现方式和helm不同, helm是基于模版, 而kustomize是基于overlay 引擎. 通俗讲就是说, 你写一个普通的k8s资源描述yaml文件, 那么所有东西都是写死的, 此时如果你有helm, 你可以把部分值写成变量模版, 达到灵活的目的. 而kustomize更像是代码式的声明将,基代码和定制化代码重叠, 达到灵活的目的, 有时我们的配置比较简单且固定, 此时, 我们更希望一种快捷易于操作的方式, 那么此时就可以考虑kustomize, 当然这不代表kustomize只能写简单的东西.
+我们来看一下需求是怎么来的:
+假设我们有一个pod.yaml:
+# pod.yaml contents apiVersion: v1 kind: Pod metadata: name: myapp-pod labels: app: myapp spec: containers: - name: web image: web:v.1.0 一切看起来都很好, 突然有一天, 老板说, 我们客户给了一个新环境, 我们得再部署一套应用到名叫XINHUANJING的新环境, 此时你可能会说, 好办, 看我粘贴复制大法, 只需改点点配置.
+# pod.yaml contents apiVersion: v1 kind: Pod metadata: name: XINHUANJING-myapp-pod labels: app: myapp spec: containers: - name: web image: web:v.</description>
+    </item>
+    
     <item>
       <title>[博客搭建 0] - 新建并挂载自己的博客到github page</title>
       <link>https://unprobug.com/post/blog/hugo/how-to-create-blog/</link>
@@ -35,7 +50,7 @@
       
       <guid>https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/</guid>
       <description>往往这些操作是需要特定权限的, 确保操作时你拥有操作权限
- 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 关机/开机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10.</description>
+ 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 开机/关机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10.</description>
     </item>
     
     <item>

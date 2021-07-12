@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>kubernetes工具 on Unpro BUG</title>
+    <link>https://unprobug.com/tags/kubernetes%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in kubernetes工具 on Unpro BUG</description>
+    <image>
+      <url>https://unprobug.com/papermod-cover.png</url>
+      <link>https://unprobug.com/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/tags/kubernetes%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[kubernetes] kustomize 入门例子</title>
+      <link>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</guid>
+      <description>0. 简介 kustomize 形如customize, 也就是k8s+customize, 它是kube资源描述文件的一种抽象工具.
+ 官方地址: https://kustomize.io/
+ 1. 为什么会用 kustomize kustomize它作用类似Helm, 它的实现方式和helm不同, helm是基于模版, 而kustomize是基于overlay 引擎. 通俗讲就是说, 你写一个普通的k8s资源描述yaml文件, 那么所有东西都是写死的, 此时如果你有helm, 你可以把部分值写成变量模版, 达到灵活的目的. 而kustomize更像是代码式的声明将,基代码和定制化代码重叠, 达到灵活的目的, 有时我们的配置比较简单且固定, 此时, 我们更希望一种快捷易于操作的方式, 那么此时就可以考虑kustomize, 当然这不代表kustomize只能写简单的东西.
+我们来看一下需求是怎么来的:
+假设我们有一个pod.yaml:
+# pod.yaml contents apiVersion: v1 kind: Pod metadata: name: myapp-pod labels: app: myapp spec: containers: - name: web image: web:v.1.0 一切看起来都很好, 突然有一天, 老板说, 我们客户给了一个新环境, 我们得再部署一套应用到名叫XINHUANJING的新环境, 此时你可能会说, 好办, 看我粘贴复制大法, 只需改点点配置.
+# pod.yaml contents apiVersion: v1 kind: Pod metadata: name: XINHUANJING-myapp-pod labels: app: myapp spec: containers: - name: web image: web:v.</description>
+    </item>
+    
+  </channel>
+</rss>

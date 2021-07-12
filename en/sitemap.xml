@@ -2,17 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://unprobug.com/post/blog/hugo/how-to-create-blog/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/tags/blog/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/categories/blog/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <loc>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</loc>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/categories/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -39,14 +33,20 @@
                 href="https://unprobug.com/categories/"
                 />
   </url><url>
-    <loc>https://unprobug.com/categories/hugo/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <loc>https://unprobug.com/tags/kubernetes/</loc>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/categories/kubernetes/</loc>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/tags/kubernetes%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/post/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/tags/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -74,7 +74,7 @@
                 />
   </url><url>
     <loc>https://unprobug.com/</loc>
-    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+    <lastmod>2021-07-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -100,6 +100,18 @@
                 hreflang="en"
                 href="https://unprobug.com/"
                 />
+  </url><url>
+    <loc>https://unprobug.com/post/blog/hugo/how-to-create-blog/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/tags/blog/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/categories/blog/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://unprobug.com/categories/hugo/</loc>
+    <lastmod>2021-07-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2021-07-09T00:00:00+00:00</lastmod>
