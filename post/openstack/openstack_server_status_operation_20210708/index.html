@@ -80,7 +80,7 @@ if (!doNotTrack) {
   "keywords": [
     "openstack", "openstack常用操作", "server"
   ],
-  "articleBody": " 往往这些操作是需要特定权限的, 确保操作时你拥有操作权限\n 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 开机/关机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10.0.10.75, fd00::17:1111::2f7 .... 4.2 查看详细信息 $ openstack server show master-01 +-------------------------------------+------------------------------------------------------------------+ | Field | Value | +-------------------------------------+------------------------------------------------------------------+ | OS-DCF:diskConfig | MANUAL | | OS-EXT-AZ:availability_zone | nova | | accessIPv4 | | | accessIPv6 | | | addresses | internal-net-01=10.0.10.75, fd00::17:1111::2f7 | | config_drive | True | | created | 2021-07-08T08:48:53Z | | flavor | large | | id | f4bbcae1-5e7a-4b72-929a-f3fdbd06fdb9 | | image | N/A (booted from volume) | | key_name | None | | name | master-01 | | progress | 0 | ... ... +-------------------------------------+------------------------------------------------------------------+  官方的server操作文档(pike)\n 打赏我 ",
+  "articleBody": " 往往这些操作是需要特定权限的, 确保操作时你拥有操作权限\n 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 开机/关机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks +--------------------------------------+-------------+---------+---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10.0.10.75, fd00::17:1111::2f7 .... 4.2 查看详细信息 $ openstack server show master-01 +-------------------------------------+------------------------------------------------------------------+ | Field | Value | +-------------------------------------+------------------------------------------------------------------+ | OS-DCF:diskConfig | MANUAL | | OS-EXT-AZ:availability_zone | nova | | accessIPv4 | | | accessIPv6 | | | addresses | internal-net-01=10.0.10.75, fd00::17:1111::2f7 | | config_drive | True | | created | 2021-07-08T08:48:53Z | | flavor | large | | id | f4bbcae1-5e7a-4b72-929a-f3fdbd06fdb9 | | image | N/A (booted from volume) | | key_name | None | | name | master-01 | | progress | 0 | ... ... +-------------------------------------+------------------------------------------------------------------+  官方的server操作文档(pike)\n 赠瓶肥宅快乐水吧 ",
   "wordCount" : "162",
   "inLanguage": "en",
   "datePublished": "2021-07-02T11:55:41+03:00",
@@ -259,7 +259,7 @@ if (!doNotTrack) {
                     <a href="#42-%e6%9f%a5%e7%9c%8b%e8%af%a6%e7%bb%86%e4%bf%a1%e6%81%af" aria-label="4.2 查看详细信息">4.2 查看详细信息</a></li></ul>
                 </li>
                 <li>
-                    <a href="#%e6%89%93%e8%b5%8f%e6%88%91" aria-label="打赏我">打赏我</a>
+                    <a href="#%e8%b5%a0%e7%93%b6%e8%82%a5%e5%ae%85%e5%bf%ab%e4%b9%90%e6%b0%b4%e5%90%a7" aria-label="赠瓶肥宅快乐水吧">赠瓶肥宅快乐水吧</a>
                 </li>
             </ul>
         </div>
@@ -315,10 +315,8 @@ $ openstack server stop myInstance
 </code></pre><blockquote>
 <p><a href="https://docs.openstack.org/python-openstackclient/pike/cli/command-objects/server.html#server-suspend">官方的server操作文档(pike)</a></p>
 </blockquote>
-<h1 id="打赏我">打赏我<a hidden class="anchor" aria-hidden="true" href="#打赏我">#</a></h1>
-<p><img loading="lazy" src="/img/wechat_qr.jpg" alt="alt text"  title="Title"  />
-</p>
-
+<h1 id="赠瓶肥宅快乐水吧">赠瓶肥宅快乐水吧<a hidden class="anchor" aria-hidden="true" href="#赠瓶肥宅快乐水吧">#</a></h1>
+<img src="/img/wechat_qr.jpg" alt="drawing" width="400"/>
 
   </div>
   <footer class="post-footer">
