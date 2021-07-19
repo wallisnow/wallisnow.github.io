@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>docker on Unpro BUG</title>
+    <link>https://unprobug.com/tags/docker/</link>
+    <description>Recent content in docker on Unpro BUG</description>
+    <image>
+      <url>https://unprobug.com/papermod-cover.png</url>
+      <link>https://unprobug.com/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 19 Jul 2021 11:16:26 +0300</lastBuildDate><atom:link href="https://unprobug.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>centos8 安装docker</title>
+      <link>https://unprobug.com/post/docker/how_to_install_docker_in_centos8/</link>
+      <pubDate>Mon, 19 Jul 2021 11:16:26 +0300</pubDate>
+      
+      <guid>https://unprobug.com/post/docker/how_to_install_docker_in_centos8/</guid>
+      <description>1. 前置条件 准备一台centos 8 的机器, 我这里用的是vagrant安装的centos8镜像
+2. 安装过程 //测试是否链接外网 [vagrant@localhost ~]$ ping google.com PING google.com (216.58.211.14) 56(84) bytes of data. 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=1 ttl=63 time=11.5 ms 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=2 ttl=63 time=12.1 ms ^C --- google.com ping statistics --- 2 packets transmitted, 2 received, 0% packet loss, time 2ms rtt min/avg/max/mdev = 11.476/11.781/12.086/0.305 ms //删除旧的docker [vagrant@localhost ~]$ sudo yum remove docker \ &amp;gt; docker-client \ &amp;gt; docker-client-latest \ &amp;gt; docker-common \ &amp;gt; docker-latest \ &amp;gt; docker-latest-logrotate \ &amp;gt; docker-logrotate \ &amp;gt; docker-engine No match for argument: docker No match for argument: docker-client No match for argument: docker-client-latest No match for argument: docker-common No match for argument: docker-latest No match for argument: docker-latest-logrotate No match for argument: docker-logrotate No match for argument: docker-engine No packages marked for removal.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -219,6 +219,18 @@ if (!doNotTrack) {
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>centos8 安装docker</h2>
+  </header>
+  <section class="entry-content">
+    <p>1. 前置条件 准备一台centos 8 的机器, 我这里用的是vagrant安装的centos8镜像
+2. 安装过程 //测试是否链接外网 [vagrant@localhost ~]$ ping google.com PING google.com (216.58.211.14) 56(84) bytes of data. 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=1 ttl=63 time=11.5 ms 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=2 ttl=63 time=12.1 ms ^C --- google.com ping statistics --- 2 packets transmitted, 2 received, 0% packet loss, time 2ms rtt min/avg/max/mdev = 11.476/11.781/12.086/0.305 ms //删除旧的docker [vagrant@localhost ~]$ sudo yum remove docker \ &gt; docker-client \ &gt; docker-client-latest \ &gt; docker-common \ &gt; docker-latest \ &gt; docker-latest-logrotate \ &gt; docker-logrotate \ &gt; docker-engine No match for argument: docker No match for argument: docker-client No match for argument: docker-client-latest No match for argument: docker-common No match for argument: docker-latest No match for argument: docker-latest-logrotate No match for argument: docker-logrotate No match for argument: docker-engine No packages marked for removal....</p>
+  </section>
+  <footer class="entry-footer">July 19, 2021&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Jiang WU</footer>
+  <a class="entry-link" aria-label="post link to centos8 安装docker" href="https://unprobug.com/post/docker/how_to_install_docker_in_centos8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>[Vagrant] 入门</h2>
   </header>
   <section class="entry-content">
@@ -268,18 +280,6 @@ if (!doNotTrack) {
   </section>
   <footer class="entry-footer">July 5, 2021&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Jiang WU</footer>
   <a class="entry-link" aria-label="post link to [博客搭建 1] - 在goDaddy购买域名并绑定博客" href="https://unprobug.com/post/blog/hugo/how-to-buy-a-domain-name/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>[openstack] 如何开关vm及类似操作命令</h2>
-  </header>
-  <section class="entry-content">
-    <p>往往这些操作是需要特定权限的, 确保操作时你拥有操作权限
- 1. 暂停/取消暂停  这种状态下VM的状态会保存到RAM中, CUP则不会, 取消后会继续暂停前的状态  $ openstack server pause myInstance $ openstack server unpause myInstance 2. 挂起/取消挂起  这种状态类似物理机休眠, 状态会保存在文件中, CUP和RAM会被释放出来  $ openstack server pause myInstance $ openstack server resume myInstance 3. 开机/关机 $ openstack server start myInstance $ openstack server stop myInstance 4. 检查机器状态 4.1 简单查看, 即从所有实例中找目标机器 $ openstack server list | grep myInstance &#43;--------------------------------------&#43;-------------&#43;---------&#43;---------------------------------------------------------------------------------------------- | ID | Name | Status | Networks &#43;--------------------------------------&#43;-------------&#43;---------&#43;---------------------------------------------------------------------------------------------- | 27b48f01-aed0-47e6-b3ab-c22e1d7064f4 | master-01 | SHUTOFF | internal-net-01=10....</p>
-  </section>
-  <footer class="entry-footer">July 2, 2021&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Jiang WU</footer>
-  <a class="entry-link" aria-label="post link to [openstack] 如何开关vm及类似操作命令" href="https://unprobug.com/post/openstack/openstack_server_status_operation_20210708/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
