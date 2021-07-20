@@ -2,18 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://unprobug.com/post/docker/how_to_install_docker_in_centos8/</loc>
+    <lastmod>2021-07-19T11:16:26+03:00</lastmod>
+  </url><url>
     <loc>https://unprobug.com/categories/</loc>
     <lastmod>2021-07-19T11:16:26+03:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/categories/"
-                />
     <xhtml:link
                 rel="alternate"
                 hreflang="cn"
@@ -21,8 +14,8 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/categories/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -31,9 +24,6 @@
                 />
   </url><url>
     <loc>https://unprobug.com/tags/centos8/</loc>
-    <lastmod>2021-07-19T11:16:26+03:00</lastmod>
-  </url><url>
-    <loc>https://unprobug.com/post/docker/how_to_install_docker_in_centos8/</loc>
     <lastmod>2021-07-19T11:16:26+03:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/tags/docker/</loc>
@@ -49,23 +39,13 @@
     <lastmod>2021-07-19T11:16:26+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="cn"
                 href="https://unprobug.com/cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/tags/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/tags/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -77,23 +57,13 @@
     <lastmod>2021-07-19T11:16:26+03:00</lastmod>
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="cn"
                 href="https://unprobug.com/cn/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -201,23 +171,13 @@
     <loc>https://unprobug.com/series/</loc>
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/series/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="cn"
                 href="https://unprobug.com/cn/series/"
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/series/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/series/"
                 />
     <xhtml:link
                 rel="alternate"

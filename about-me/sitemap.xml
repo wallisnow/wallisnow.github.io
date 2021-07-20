@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://unprobug.com/about-me/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/categories/"
+                />
+  </url><url>
+    <loc>https://unprobug.com/about-me/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/"
+                />
+  </url><url>
+    <loc>https://unprobug.com/about-me/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/series/"
+                />
+  </url><url>
+    <loc>https://unprobug.com/about-me/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://unprobug.com/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/tags/"
+                />
+  </url>
+</urlset>

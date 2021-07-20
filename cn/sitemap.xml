@@ -10,18 +10,8 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -37,18 +27,8 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/categories/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/categories/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -76,18 +56,8 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/series/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/series/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -103,18 +73,8 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="fr"
-                href="https://unprobug.com/fr/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fi"
-                href="https://unprobug.com/fi/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="me"
-                href="https://unprobug.com/me/tags/"
+                hreflang="about me"
+                href="https://unprobug.com/about-me/tags/"
                 />
     <xhtml:link
                 rel="alternate"

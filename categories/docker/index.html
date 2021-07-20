@@ -121,20 +121,12 @@ if (!doNotTrack) {
                 </button>
                 <ul class="lang-switch"><li>|</li>
                     <li>
-                        <a href="https://unprobug.com/fr/" title="French"
-                            aria-label=":fr:">🇫🇷</a>
-                    </li>
-                    <li>
-                        <a href="https://unprobug.com/fi/" title="Suomi"
-                            aria-label="🇫🇮">🇫🇮</a>
-                    </li>
-                    <li>
                         <a href="https://unprobug.com/cn/" title="中文"
                             aria-label=":cn:">🇨🇳</a>
                     </li>
                     <li>
-                        <a href="https://unprobug.com/me/" title="Me"
-                            aria-label="Me">Me</a>
+                        <a href="https://unprobug.com/about-me/" title="About Me"
+                            aria-label="About Me">About Me</a>
                     </li>
                 </ul>
             </span>
@@ -175,14 +167,14 @@ if (!doNotTrack) {
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>centos8 安装docker</h2>
+    <h2>[docker] centos8 安装docker</h2>
   </header>
   <section class="entry-content">
     <p>1. 前置条件 准备一台centos 8 的机器, 我这里用的是vagrant安装的centos8镜像
-2. 安装过程 //测试是否链接外网 [vagrant@localhost ~]$ ping google.com PING google.com (216.58.211.14) 56(84) bytes of data. 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=1 ttl=63 time=11.5 ms 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=2 ttl=63 time=12.1 ms ^C --- google.com ping statistics --- 2 packets transmitted, 2 received, 0% packet loss, time 2ms rtt min/avg/max/mdev = 11.476/11.781/12.086/0.305 ms //删除旧的docker [vagrant@localhost ~]$ sudo yum remove docker \ &gt; docker-client \ &gt; docker-client-latest \ &gt; docker-common \ &gt; docker-latest \ &gt; docker-latest-logrotate \ &gt; docker-logrotate \ &gt; docker-engine No match for argument: docker No match for argument: docker-client No match for argument: docker-client-latest No match for argument: docker-common No match for argument: docker-latest No match for argument: docker-latest-logrotate No match for argument: docker-logrotate No match for argument: docker-engine No packages marked for removal....</p>
+2. 安装过程 2.1 测试是否链接外网 $ ping google.com PING google.com (216.58.211.14) 56(84) bytes of data. 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=1 ttl=63 time=11.5 ms 64 bytes from muc03s13-in-f14.1e100.net (216.58.211.14): icmp_seq=2 ttl=63 time=12.1 ms ^C --- google.com ping statistics --- 2 packets transmitted, 2 received, 0% packet loss, time 2ms rtt min/avg/max/mdev = 11.476/11.781/12.086/0.305 ms 2.2 删除旧的docker $ sudo yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-engine 2....</p>
   </section>
-  <footer class="entry-footer">July 19, 2021&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Jiang WU</footer>
-  <a class="entry-link" aria-label="post link to centos8 安装docker" href="https://unprobug.com/post/docker/how_to_install_docker_in_centos8/"></a>
+  <footer class="entry-footer">July 19, 2021&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Jiang WU</footer>
+  <a class="entry-link" aria-label="post link to [docker] centos8 安装docker" href="https://unprobug.com/post/docker/how_to_install_docker_in_centos8/"></a>
 </article>
     </main>
     <footer class="footer">
