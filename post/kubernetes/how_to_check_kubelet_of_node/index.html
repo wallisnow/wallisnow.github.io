@@ -86,8 +86,8 @@ test@node-01:~&gt; kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTER
   "keywords": [
     "kubernetes", "kubelet", "kubernetes技巧"
   ],
-  "articleBody": "0. 前言 有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?\n1. 先说结论 查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口\napi/vi/nodes//proxy/cofigz 2. 举个栗子 例如我们有这样一个集群:\ntest@node-01:~ kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME master-0-01 Ready control-plane,master 16h v1.21.1 10.0.10.9  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-1-01 Ready control-plane,master 16h v1.21.1 10.0.10.10  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-2-01 Ready control-plane,master 16h v1.21.1 10.0.10.24  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 poolalpha-worker-0-01 Ready worker 15h v1.21.1 10.0.10.4  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 poolalpha-worker-1-01 Ready worker 15h v1.21.1 10.0.10.13  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 2.1 修改kubelet配置 接下来, 我们希望修改poolalpha-worker-0-01 的kubelet某个参数, 那么我们先登录这个节点, 然后查看当前节点使用的config.yml\n test@poolalpha-worker-0-01:~ systemctl status kubelet ● kubelet.service - kubelet: The Kubernetes Node Agent Loaded: loaded (/usr/local/lib/systemd/system/kubelet.service; enabled; vendor preset: disabled) Active: active (running) since Mon 2021-07-26 15:44:19 UTC; 15h ago Docs: http://kubernetes.io/docs/ Process: 8868 ExecStopPost=/bin/umount --verbose /opt/cni (code=exited, status=0/SUCCESS) Process: 8874 ExecStartPre=/bin/mount --verbose --bind /usr/local/lib/cni /opt/cni (code=exited, status=0/SUCCESS) Process: 8869 ExecStartPre=/bin/mkdir --verbose --parents /opt/cni (code=exited, status=0/SUCCESS) Main PID: 8878 (kubelet) Tasks: 16 CGroup: /system.slice/kubelet.service └─8878 /usr/local/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --network-plugin=cn  我们观察到, 此时这个节点使用的配置文件为 –config=/var/lib/kubelet/config.yaml, 打开看一下\ntest@poolalpha-worker-0-01:~ cat /var/lib/kubelet/config.yaml apiVersion: kubelet.config.k8s.io/v1beta1 authentication: anonymous: enabled: false webhook: cacheTTL: 0s enabled: true x509: clientCAFile: /etc/kubernetes/pki/ca.crt authorization: mode: Webhook webhook: cacheAuthorizedTTL: 0s cacheUnauthorizedTTL: 0s cgroupDriver: systemd clusterDNS: - 169.254.20.10 clusterDomain: cluster.local cpuManagerReconcilePeriod: 0s evictionPressureTransitionPeriod: 0s featureGates: AllAlpha: false BoundServiceAccountTokenVolume: false EphemeralContainers: true RemoveSelfLink: false RotateKubeletServerCertificate: true fileCheckFrequency: 0s healthzBindAddress: 127.0.0.1 healthzPort: 10248 httpCheckFrequency: 0s imageMinimumGCAge: 0s kind: KubeletConfiguration kubeletCgroups: /system.slice/kubelet.service logging: {} nodeStatusReportFrequency: 0s nodeStatusUpdateFrequency: 0s rotateCertificates: true runtimeRequestTimeout: 0s shutdownGracePeriod: 0s shutdownGracePeriodCriticalPods: 0s staticPodPath: /etc/kubernetes/manifests streamingConnectionIdleTimeout: 0s syncFrequency: 0s volumeStatsAggPeriod: 0s 此时, 我们修改某个参数比如:\nshutdownGracePeriod: 30s shutdownGracePeriodCriticalPods: 10s 在此节点上重启kubelet\nsudo systemctl daemon-reload sudo systemctl stop kubelet sudo systemctl start kubelet 此时我们修改就完成了\n2.1 查看新配置是否生效 登录到一个有kubenetes 集群访问权限的节点, 比如一个master节点, 然后开启kube proxy\ntest@master-0-01:~ kubectl proxy --api-prefix=/ \u0026 [1] 6171 使用查询接口来查看\n test@director-0-01:~ curl http://127.0.0.1:8001/api/v1/nodes/poolalpha-worker-0-01/proxy/configz|jq % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 100 2520 0 2520 0 0 7522 0 --:--:-- --:--:-- --:--:-- 7522 { \"kubeletconfig\": { \"enableServer\": true, \"staticPodPath\": \"/etc/kubernetes/manifests\", \"syncFrequency\": \"1m0s\", \"fileCheckFrequency\": \"20s\", \"httpCheckFrequency\": \"20s\", \"address\": \"0.0.0.0\", \"port\": 10250, \"tlsCertFile\": \"/var/lib/kubelet/pki/kubelet.crt\", \"tlsPrivateKeyFile\": \"/var/lib/kubelet/pki/kubelet.key\", \"rotateCertificates\": true, \"authentication\": { \"x509\": { \"clientCAFile\": \"/etc/kubernetes/pki/ca.crt\" }, \"webhook\": { \"enabled\": true, \"cacheTTL\": \"2m0s\" }, \"anonymous\": { \"enabled\": false } }, \"authorization\": { \"mode\": \"Webhook\", \"webhook\": { \"cacheAuthorizedTTL\": \"5m0s\", \"cacheUnauthorizedTTL\": \"30s\" } }, \"registryPullQPS\": 5, \"registryBurst\": 10, \"eventRecordQPS\": 5, \"eventBurst\": 10, \"enableDebuggingHandlers\": true, \"healthzPort\": 10248, \"healthzBindAddress\": \"127.0.0.1\", \"oomScoreAdj\": -999, \"clusterDomain\": \"cluster.local\", \"clusterDNS\": [ \"169.254.20.10\" ], \"streamingConnectionIdleTimeout\": \"4h0m0s\", \"nodeStatusUpdateFrequency\": \"10s\", \"nodeStatusReportFrequency\": \"5m0s\", \"nodeLeaseDurationSeconds\": 40, \"imageMinimumGCAge\": \"2m0s\", \"imageGCHighThresholdPercent\": 85, \"imageGCLowThresholdPercent\": 80, \"volumeStatsAggPeriod\": \"1m0s\", \"kubeletCgroups\": \"/system.slice/kubelet.service\", \"cgroupsPerQOS\": true, \"cgroupDriver\": \"systemd\", \"cpuManagerPolicy\": \"none\", \"cpuManagerReconcilePeriod\": \"10s\", \"memoryManagerPolicy\": \"None\", \"topologyManagerPolicy\": \"none\", \"topologyManagerScope\": \"container\", \"runtimeRequestTimeout\": \"15m0s\", \"hairpinMode\": \"promiscuous-bridge\", \"maxPods\": 110, \"podPidsLimit\": -1, \"resolvConf\": \"/etc/resolv.conf\", \"cpuCFSQuota\": true, \"cpuCFSQuotaPeriod\": \"100ms\", \"nodeStatusMaxImages\": 50, \"maxOpenFiles\": 1000000, \"contentType\": \"application/vnd.kubernetes.protobuf\", \"kubeAPIQPS\": 5, \"kubeAPIBurst\": 10, \"serializeImagePulls\": true, \"evictionHard\": { \"imagefs.available\": \"15%\", \"memory.available\": \"100Mi\", \"nodefs.available\": \"10%\", \"nodefs.inodesFree\": \"5%\" }, \"evictionPressureTransitionPeriod\": \"5m0s\", \"enableControllerAttachDetach\": true, \"makeIPTablesUtilChains\": true, \"iptablesMasqueradeBit\": 14, \"iptablesDropBit\": 15, \"featureGates\": { \"AllAlpha\": false, \"BoundServiceAccountTokenVolume\": false, \"EphemeralContainers\": true, \"RemoveSelfLink\": false, \"RotateKubeletServerCertificate\": true }, \"failSwapOn\": true, \"containerLogMaxSize\": \"10Mi\", \"containerLogMaxFiles\": 5, \"configMapAndSecretChangeDetectionStrategy\": \"Watch\", \"enforceNodeAllocatable\": [ \"pods\" ], \"volumePluginDir\": \"/usr/libexec/kubernetes/kubelet-plugins/volume/exec/\", \"logging\": { \"format\": \"text\" }, \"enableSystemLogHandler\": true,  \"shutdownGracePeriod\": \"30s\", \"shutdownGracePeriodCriticalPods\": \"10s\",  \"enableProfilingHandler\": true, \"enableDebugFlagsHandler\": true } }  这里使用jq 使得生成的json更加可读\n3. 结语 上面修改kubelet参数只是一个例子, 修改的方法很多, 但查看其实际配置建议还是采用此接口\n",
-  "wordCount" : "548",
+  "articleBody": "0. 前言 有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?\n1. 先说结论 查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口\napi/vi/nodes//proxy/cofigz 2. 举个栗子 例如我们有这样一个集群:\ntest@node-01:~ kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME master-0-01 Ready control-plane,master 16h v1.21.1 10.0.10.9  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-1-01 Ready control-plane,master 16h v1.21.1 10.0.10.10  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-2-01 Ready control-plane,master 16h v1.21.1 10.0.10.24  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 poolalpha-worker-0-01 Ready worker 15h v1.21.1 10.0.10.4  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 poolalpha-worker-1-01 Ready worker 15h v1.21.1 10.0.10.13  SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 2.1 修改kubelet配置 接下来, 我们希望修改poolalpha-worker-0-01 的kubelet某个参数, 那么我们先登录这个节点, 然后查看当前节点使用的config.yml\ntest@poolalpha-worker-0-01:~ systemctl status kubelet ● kubelet.service - kubelet: The Kubernetes Node Agent Loaded: loaded (/usr/local/lib/systemd/system/kubelet.service; enabled; vendor preset: disabled) Active: active (running) since Mon 2021-07-26 15:44:19 UTC; 15h ago Docs: http://kubernetes.io/docs/ Process: 8868 ExecStopPost=/bin/umount --verbose /opt/cni (code=exited, status=0/SUCCESS) Process: 8874 ExecStartPre=/bin/mount --verbose --bind /usr/local/lib/cni /opt/cni (code=exited, status=0/SUCCESS) Process: 8869 ExecStartPre=/bin/mkdir --verbose --parents /opt/cni (code=exited, status=0/SUCCESS) Main PID: 8878 (kubelet) Tasks: 16 CGroup: /system.slice/kubelet.service └─8878 /usr/local/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --network-plugin=cn 我们观察到, 此时这个节点使用的配置文件为 –config=/var/lib/kubelet/config.yaml, 打开看一下\ntest@poolalpha-worker-0-01:~ cat /var/lib/kubelet/config.yaml apiVersion: kubelet.config.k8s.io/v1beta1 authentication: anonymous: enabled: false webhook: cacheTTL: 0s enabled: true x509: clientCAFile: /etc/kubernetes/pki/ca.crt authorization: mode: Webhook webhook: cacheAuthorizedTTL: 0s cacheUnauthorizedTTL: 0s cgroupDriver: systemd clusterDNS: - 169.254.20.10 clusterDomain: cluster.local cpuManagerReconcilePeriod: 0s evictionPressureTransitionPeriod: 0s featureGates: AllAlpha: false BoundServiceAccountTokenVolume: false EphemeralContainers: true RemoveSelfLink: false RotateKubeletServerCertificate: true fileCheckFrequency: 0s healthzBindAddress: 127.0.0.1 healthzPort: 10248 httpCheckFrequency: 0s imageMinimumGCAge: 0s kind: KubeletConfiguration kubeletCgroups: /system.slice/kubelet.service logging: {} nodeStatusReportFrequency: 0s nodeStatusUpdateFrequency: 0s rotateCertificates: true runtimeRequestTimeout: 0s shutdownGracePeriod: 0s shutdownGracePeriodCriticalPods: 0s staticPodPath: /etc/kubernetes/manifests streamingConnectionIdleTimeout: 0s syncFrequency: 0s volumeStatsAggPeriod: 0s 此时, 我们修改某个参数比如:\nshutdownGracePeriod: 30s shutdownGracePeriodCriticalPods: 10s 在此节点上重启kubelet\nsudo systemctl daemon-reload sudo systemctl stop kubelet sudo systemctl start kubelet 此时我们修改就完成了\n2.1 查看新配置是否生效 登录到一个有kubenetes 集群访问权限的节点, 比如一个master节点, 然后开启kube proxy\ntest@master-0-01:~ kubectl proxy --api-prefix=/ \u0026 [1] 6171 使用查询接口来查看\ntest@director-0-01:~ curl http://127.0.0.1:8001/api/v1/nodes/poolalpha-worker-0-01/proxy/configz|jq % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 100 2520 0 2520 0 0 7522 0 --:--:-- --:--:-- --:--:-- 7522 { \"kubeletconfig\": { \"enableServer\": true, \"staticPodPath\": \"/etc/kubernetes/manifests\", \"syncFrequency\": \"1m0s\", \"fileCheckFrequency\": \"20s\", \"httpCheckFrequency\": \"20s\", \"address\": \"0.0.0.0\", \"port\": 10250, \"tlsCertFile\": \"/var/lib/kubelet/pki/kubelet.crt\", \"tlsPrivateKeyFile\": \"/var/lib/kubelet/pki/kubelet.key\", \"rotateCertificates\": true, \"authentication\": { \"x509\": { \"clientCAFile\": \"/etc/kubernetes/pki/ca.crt\" }, \"webhook\": { \"enabled\": true, \"cacheTTL\": \"2m0s\" }, \"anonymous\": { \"enabled\": false } }, \"authorization\": { \"mode\": \"Webhook\", \"webhook\": { \"cacheAuthorizedTTL\": \"5m0s\", \"cacheUnauthorizedTTL\": \"30s\" } }, \"registryPullQPS\": 5, \"registryBurst\": 10, \"eventRecordQPS\": 5, \"eventBurst\": 10, \"enableDebuggingHandlers\": true, \"healthzPort\": 10248, \"healthzBindAddress\": \"127.0.0.1\", \"oomScoreAdj\": -999, \"clusterDomain\": \"cluster.local\", \"clusterDNS\": [ \"169.254.20.10\" ], \"streamingConnectionIdleTimeout\": \"4h0m0s\", \"nodeStatusUpdateFrequency\": \"10s\", \"nodeStatusReportFrequency\": \"5m0s\", \"nodeLeaseDurationSeconds\": 40, \"imageMinimumGCAge\": \"2m0s\", \"imageGCHighThresholdPercent\": 85, \"imageGCLowThresholdPercent\": 80, \"volumeStatsAggPeriod\": \"1m0s\", \"kubeletCgroups\": \"/system.slice/kubelet.service\", \"cgroupsPerQOS\": true, \"cgroupDriver\": \"systemd\", \"cpuManagerPolicy\": \"none\", \"cpuManagerReconcilePeriod\": \"10s\", \"memoryManagerPolicy\": \"None\", \"topologyManagerPolicy\": \"none\", \"topologyManagerScope\": \"container\", \"runtimeRequestTimeout\": \"15m0s\", \"hairpinMode\": \"promiscuous-bridge\", \"maxPods\": 110, \"podPidsLimit\": -1, \"resolvConf\": \"/etc/resolv.conf\", \"cpuCFSQuota\": true, \"cpuCFSQuotaPeriod\": \"100ms\", \"nodeStatusMaxImages\": 50, \"maxOpenFiles\": 1000000, \"contentType\": \"application/vnd.kubernetes.protobuf\", \"kubeAPIQPS\": 5, \"kubeAPIBurst\": 10, \"serializeImagePulls\": true, \"evictionHard\": { \"imagefs.available\": \"15%\", \"memory.available\": \"100Mi\", \"nodefs.available\": \"10%\", \"nodefs.inodesFree\": \"5%\" }, \"evictionPressureTransitionPeriod\": \"5m0s\", \"enableControllerAttachDetach\": true, \"makeIPTablesUtilChains\": true, \"iptablesMasqueradeBit\": 14, \"iptablesDropBit\": 15, \"featureGates\": { \"AllAlpha\": false, \"BoundServiceAccountTokenVolume\": false, \"EphemeralContainers\": true, \"RemoveSelfLink\": false, \"RotateKubeletServerCertificate\": true }, \"failSwapOn\": true, \"containerLogMaxSize\": \"10Mi\", \"containerLogMaxFiles\": 5, \"configMapAndSecretChangeDetectionStrategy\": \"Watch\", \"enforceNodeAllocatable\": [ \"pods\" ], \"volumePluginDir\": \"/usr/libexec/kubernetes/kubelet-plugins/volume/exec/\", \"logging\": { \"format\": \"text\" }, \"enableSystemLogHandler\": true, ################看这里#################### \"shutdownGracePeriod\": \"30s\", \"shutdownGracePeriodCriticalPods\": \"10s\", ######################################## \"enableProfilingHandler\": true, \"enableDebugFlagsHandler\": true } } 这里使用jq 使得生成的json更加可读\n3. 结语 上面修改kubelet参数只是一个例子, 修改的方法很多, 但查看其实际配置建议还是采用此接口\n",
+  "wordCount" : "550",
   "inLanguage": "en",
   "datePublished": "2021-07-26T11:06:28+03:00",
   "dateModified": "2021-07-26T11:06:28+03:00",
@@ -276,8 +276,7 @@ poolalpha-worker-0-01   Ready    worker                 15h   v1.21.1   10.0.10.
 poolalpha-worker-1-01   Ready    worker                 15h   v1.21.1   10.0.10.13    &lt;none&gt;        SUSE Linux Enterprise Server 15 SP2   5.3.18-24.67-default   containerd://1.4.4
 </code></pre><h1 id="21-修改kubelet配置">2.1 修改kubelet配置<a hidden class="anchor" aria-hidden="true" href="#21-修改kubelet配置">#</a></h1>
 <p>接下来, 我们希望修改poolalpha-worker-0-01 的kubelet某个参数, 那么我们先登录这个节点, 然后查看当前节点使用的config.yml</p>
-<pre>
-test@poolalpha-worker-0-01:~> systemctl status kubelet
+<pre><code>test@poolalpha-worker-0-01:~&gt; systemctl status kubelet
 ● kubelet.service - kubelet: The Kubernetes Node Agent
    Loaded: loaded (/usr/local/lib/systemd/system/kubelet.service; enabled; vendor preset: disabled)
    Active: active (running) since Mon 2021-07-26 15:44:19 UTC; 15h ago
@@ -288,9 +287,8 @@ test@poolalpha-worker-0-01:~> systemctl status kubelet
  Main PID: 8878 (kubelet)
     Tasks: 16
    CGroup: /system.slice/kubelet.service
-           └─8878 /usr/local/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf <b>--config=/var/lib/kubelet/config.yaml</b> --network-plugin=cn>
-</pre>
-<p>我们观察到, 此时这个节点使用的配置文件为 <strong>&ndash;config=/var/lib/kubelet/config.yaml</strong>, 打开看一下</p>
+           └─8878 /usr/local/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --network-plugin=cn&gt;
+</code></pre><p>我们观察到, 此时这个节点使用的配置文件为 <strong>&ndash;config=/var/lib/kubelet/config.yaml</strong>, 打开看一下</p>
 <pre><code>test@poolalpha-worker-0-01:~&gt; cat /var/lib/kubelet/config.yaml 
 apiVersion: kubelet.config.k8s.io/v1beta1
 authentication:
@@ -349,123 +347,121 @@ sudo systemctl start kubelet
 <pre><code>test@master-0-01:~&gt; kubectl proxy --api-prefix=/ &amp;
 [1] 6171
 </code></pre><p>使用查询接口来查看</p>
-<pre>
-test@director-0-01:~> curl <b>http://127.0.0.1:8001/api/v1/nodes/poolalpha-worker-0-01/proxy/configz|jq</b>
+<pre><code>test@director-0-01:~&gt; curl &lt;b&gt;http://127.0.0.1:8001/api/v1/nodes/poolalpha-worker-0-01/proxy/configz|jq&lt;/b&gt;
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  2520    0  2520    0     0   7522      0 --:--:-- --:--:-- --:--:--  7522
 {
-  "kubeletconfig": {
-    "enableServer": true,
-    "staticPodPath": "/etc/kubernetes/manifests",
-    "syncFrequency": "1m0s",
-    "fileCheckFrequency": "20s",
-    "httpCheckFrequency": "20s",
-    "address": "0.0.0.0",
-    "port": 10250,
-    "tlsCertFile": "/var/lib/kubelet/pki/kubelet.crt",
-    "tlsPrivateKeyFile": "/var/lib/kubelet/pki/kubelet.key",
-    "rotateCertificates": true,
-    "authentication": {
-      "x509": {
-        "clientCAFile": "/etc/kubernetes/pki/ca.crt"
+  &quot;kubeletconfig&quot;: {
+    &quot;enableServer&quot;: true,
+    &quot;staticPodPath&quot;: &quot;/etc/kubernetes/manifests&quot;,
+    &quot;syncFrequency&quot;: &quot;1m0s&quot;,
+    &quot;fileCheckFrequency&quot;: &quot;20s&quot;,
+    &quot;httpCheckFrequency&quot;: &quot;20s&quot;,
+    &quot;address&quot;: &quot;0.0.0.0&quot;,
+    &quot;port&quot;: 10250,
+    &quot;tlsCertFile&quot;: &quot;/var/lib/kubelet/pki/kubelet.crt&quot;,
+    &quot;tlsPrivateKeyFile&quot;: &quot;/var/lib/kubelet/pki/kubelet.key&quot;,
+    &quot;rotateCertificates&quot;: true,
+    &quot;authentication&quot;: {
+      &quot;x509&quot;: {
+        &quot;clientCAFile&quot;: &quot;/etc/kubernetes/pki/ca.crt&quot;
       },
-      "webhook": {
-        "enabled": true,
-        "cacheTTL": "2m0s"
+      &quot;webhook&quot;: {
+        &quot;enabled&quot;: true,
+        &quot;cacheTTL&quot;: &quot;2m0s&quot;
       },
-      "anonymous": {
-        "enabled": false
+      &quot;anonymous&quot;: {
+        &quot;enabled&quot;: false
       }
     },
-    "authorization": {
-      "mode": "Webhook",
-      "webhook": {
-        "cacheAuthorizedTTL": "5m0s",
-        "cacheUnauthorizedTTL": "30s"
+    &quot;authorization&quot;: {
+      &quot;mode&quot;: &quot;Webhook&quot;,
+      &quot;webhook&quot;: {
+        &quot;cacheAuthorizedTTL&quot;: &quot;5m0s&quot;,
+        &quot;cacheUnauthorizedTTL&quot;: &quot;30s&quot;
       }
     },
-    "registryPullQPS": 5,
-    "registryBurst": 10,
-    "eventRecordQPS": 5,
-    "eventBurst": 10,
-    "enableDebuggingHandlers": true,
-    "healthzPort": 10248,
-    "healthzBindAddress": "127.0.0.1",
-    "oomScoreAdj": -999,
-    "clusterDomain": "cluster.local",
-    "clusterDNS": [
-      "169.254.20.10"
+    &quot;registryPullQPS&quot;: 5,
+    &quot;registryBurst&quot;: 10,
+    &quot;eventRecordQPS&quot;: 5,
+    &quot;eventBurst&quot;: 10,
+    &quot;enableDebuggingHandlers&quot;: true,
+    &quot;healthzPort&quot;: 10248,
+    &quot;healthzBindAddress&quot;: &quot;127.0.0.1&quot;,
+    &quot;oomScoreAdj&quot;: -999,
+    &quot;clusterDomain&quot;: &quot;cluster.local&quot;,
+    &quot;clusterDNS&quot;: [
+      &quot;169.254.20.10&quot;
     ],
-    "streamingConnectionIdleTimeout": "4h0m0s",
-    "nodeStatusUpdateFrequency": "10s",
-    "nodeStatusReportFrequency": "5m0s",
-    "nodeLeaseDurationSeconds": 40,
-    "imageMinimumGCAge": "2m0s",
-    "imageGCHighThresholdPercent": 85,
-    "imageGCLowThresholdPercent": 80,
-    "volumeStatsAggPeriod": "1m0s",
-    "kubeletCgroups": "/system.slice/kubelet.service",
-    "cgroupsPerQOS": true,
-    "cgroupDriver": "systemd",
-    "cpuManagerPolicy": "none",
-    "cpuManagerReconcilePeriod": "10s",
-    "memoryManagerPolicy": "None",
-    "topologyManagerPolicy": "none",
-    "topologyManagerScope": "container",
-    "runtimeRequestTimeout": "15m0s",
-    "hairpinMode": "promiscuous-bridge",
-    "maxPods": 110,
-    "podPidsLimit": -1,
-    "resolvConf": "/etc/resolv.conf",
-    "cpuCFSQuota": true,
-    "cpuCFSQuotaPeriod": "100ms",
-    "nodeStatusMaxImages": 50,
-    "maxOpenFiles": 1000000,
-    "contentType": "application/vnd.kubernetes.protobuf",
-    "kubeAPIQPS": 5,
-    "kubeAPIBurst": 10,
-    "serializeImagePulls": true,
-    "evictionHard": {
-      "imagefs.available": "15%",
-      "memory.available": "100Mi",
-      "nodefs.available": "10%",
-      "nodefs.inodesFree": "5%"
+    &quot;streamingConnectionIdleTimeout&quot;: &quot;4h0m0s&quot;,
+    &quot;nodeStatusUpdateFrequency&quot;: &quot;10s&quot;,
+    &quot;nodeStatusReportFrequency&quot;: &quot;5m0s&quot;,
+    &quot;nodeLeaseDurationSeconds&quot;: 40,
+    &quot;imageMinimumGCAge&quot;: &quot;2m0s&quot;,
+    &quot;imageGCHighThresholdPercent&quot;: 85,
+    &quot;imageGCLowThresholdPercent&quot;: 80,
+    &quot;volumeStatsAggPeriod&quot;: &quot;1m0s&quot;,
+    &quot;kubeletCgroups&quot;: &quot;/system.slice/kubelet.service&quot;,
+    &quot;cgroupsPerQOS&quot;: true,
+    &quot;cgroupDriver&quot;: &quot;systemd&quot;,
+    &quot;cpuManagerPolicy&quot;: &quot;none&quot;,
+    &quot;cpuManagerReconcilePeriod&quot;: &quot;10s&quot;,
+    &quot;memoryManagerPolicy&quot;: &quot;None&quot;,
+    &quot;topologyManagerPolicy&quot;: &quot;none&quot;,
+    &quot;topologyManagerScope&quot;: &quot;container&quot;,
+    &quot;runtimeRequestTimeout&quot;: &quot;15m0s&quot;,
+    &quot;hairpinMode&quot;: &quot;promiscuous-bridge&quot;,
+    &quot;maxPods&quot;: 110,
+    &quot;podPidsLimit&quot;: -1,
+    &quot;resolvConf&quot;: &quot;/etc/resolv.conf&quot;,
+    &quot;cpuCFSQuota&quot;: true,
+    &quot;cpuCFSQuotaPeriod&quot;: &quot;100ms&quot;,
+    &quot;nodeStatusMaxImages&quot;: 50,
+    &quot;maxOpenFiles&quot;: 1000000,
+    &quot;contentType&quot;: &quot;application/vnd.kubernetes.protobuf&quot;,
+    &quot;kubeAPIQPS&quot;: 5,
+    &quot;kubeAPIBurst&quot;: 10,
+    &quot;serializeImagePulls&quot;: true,
+    &quot;evictionHard&quot;: {
+      &quot;imagefs.available&quot;: &quot;15%&quot;,
+      &quot;memory.available&quot;: &quot;100Mi&quot;,
+      &quot;nodefs.available&quot;: &quot;10%&quot;,
+      &quot;nodefs.inodesFree&quot;: &quot;5%&quot;
     },
-    "evictionPressureTransitionPeriod": "5m0s",
-    "enableControllerAttachDetach": true,
-    "makeIPTablesUtilChains": true,
-    "iptablesMasqueradeBit": 14,
-    "iptablesDropBit": 15,
-    "featureGates": {
-      "AllAlpha": false,
-      "BoundServiceAccountTokenVolume": false,
-      "EphemeralContainers": true,
-      "RemoveSelfLink": false,
-      "RotateKubeletServerCertificate": true
+    &quot;evictionPressureTransitionPeriod&quot;: &quot;5m0s&quot;,
+    &quot;enableControllerAttachDetach&quot;: true,
+    &quot;makeIPTablesUtilChains&quot;: true,
+    &quot;iptablesMasqueradeBit&quot;: 14,
+    &quot;iptablesDropBit&quot;: 15,
+    &quot;featureGates&quot;: {
+      &quot;AllAlpha&quot;: false,
+      &quot;BoundServiceAccountTokenVolume&quot;: false,
+      &quot;EphemeralContainers&quot;: true,
+      &quot;RemoveSelfLink&quot;: false,
+      &quot;RotateKubeletServerCertificate&quot;: true
     },
-    "failSwapOn": true,
-    "containerLogMaxSize": "10Mi",
-    "containerLogMaxFiles": 5,
-    "configMapAndSecretChangeDetectionStrategy": "Watch",
-    "enforceNodeAllocatable": [
-      "pods"
+    &quot;failSwapOn&quot;: true,
+    &quot;containerLogMaxSize&quot;: &quot;10Mi&quot;,
+    &quot;containerLogMaxFiles&quot;: 5,
+    &quot;configMapAndSecretChangeDetectionStrategy&quot;: &quot;Watch&quot;,
+    &quot;enforceNodeAllocatable&quot;: [
+      &quot;pods&quot;
     ],
-    "volumePluginDir": "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/",
-    "logging": {
-      "format": "text"
+    &quot;volumePluginDir&quot;: &quot;/usr/libexec/kubernetes/kubelet-plugins/volume/exec/&quot;,
+    &quot;logging&quot;: {
+      &quot;format&quot;: &quot;text&quot;
     },
-    "enableSystemLogHandler": true,
-    <b>
-    "shutdownGracePeriod": "30s",
-    "shutdownGracePeriodCriticalPods": "10s",
-    </b>
-    "enableProfilingHandler": true,
-    "enableDebugFlagsHandler": true
+    &quot;enableSystemLogHandler&quot;: true,
+    ################看这里####################
+    &quot;shutdownGracePeriod&quot;: &quot;30s&quot;,
+    &quot;shutdownGracePeriodCriticalPods&quot;: &quot;10s&quot;,
+    ########################################
+    &quot;enableProfilingHandler&quot;: true,
+    &quot;enableDebugFlagsHandler&quot;: true
   }
 }
-</pre>
-<p>这里使用jq 使得生成的json更加可读</p>
+</code></pre><p>这里使用jq 使得生成的json更加可读</p>
 <h1 id="3-结语">3. 结语<a hidden class="anchor" aria-hidden="true" href="#3-结语">#</a></h1>
 <p>上面修改kubelet参数只是一个例子, 修改的方法很多, 但查看其实际配置建议还是采用此接口</p>
 
