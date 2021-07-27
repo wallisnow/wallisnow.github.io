@@ -9,7 +9,19 @@
       <link>https://unprobug.com/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://unprobug.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Jul 2021 11:06:28 +0300</lastBuildDate><atom:link href="https://unprobug.com/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[kubernetes]如何查看node的kubelet配置</title>
+      <link>https://unprobug.com/post/kubernetes/how_to_check_kubelet_of_node/</link>
+      <pubDate>Mon, 26 Jul 2021 11:06:28 +0300</pubDate>
+      
+      <guid>https://unprobug.com/post/kubernetes/how_to_check_kubelet_of_node/</guid>
+      <description>0. 前言 有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?
+1. 先说结论 查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口
+api/vi/nodes/&amp;lt;node_name&amp;gt;/proxy/cofigz 2. 举个栗子 例如我们有这样一个集群:
+test@node-01:~&amp;gt; kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME master-0-01 Ready control-plane,master 16h v1.21.1 10.0.10.9 &amp;lt;none&amp;gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-1-01 Ready control-plane,master 16h v1.21.1 10.0.10.10 &amp;lt;none&amp;gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-2-01 Ready control-plane,master 16h v1.</description>
+    </item>
+    
     <item>
       <title>[kubernetes] kustomize 入门例子</title>
       <link>https://unprobug.com/post/kubernetes/how_to_use_kustomize/</link>

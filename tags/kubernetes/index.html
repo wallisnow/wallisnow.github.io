@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://unprobug.com/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.85.0" />
+<meta name="generator" content="Hugo 0.86.0" />
 <link rel="alternate" type="application/rss+xml" href="https://unprobug.com/tags/kubernetes/index.xml">
 <link rel="alternate" hreflang="en" href="https://unprobug.com/tags/kubernetes/" />
 
@@ -164,6 +164,20 @@ if (!doNotTrack) {
 <header class="page-header"><div class="breadcrumbs"><a href="https://unprobug.com/">Home</a>&nbsp;»&nbsp;<a href="https://unprobug.com/tags/">Tags</a></div>
   <h1>kubernetes</h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>[kubernetes]如何查看node的kubelet配置</h2>
+  </header>
+  <section class="entry-content">
+    <p>0. 前言 有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?
+1. 先说结论 查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口
+api/vi/nodes/&lt;node_name&gt;/proxy/cofigz 2. 举个栗子 例如我们有这样一个集群:
+test@node-01:~&gt; kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME master-0-01 Ready control-plane,master 16h v1.21.1 10.0.10.9 &lt;none&gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-1-01 Ready control-plane,master 16h v1.21.1 10.0.10.10 &lt;none&gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-2-01 Ready control-plane,master 16h v1....</p>
+  </section>
+  <footer class="entry-footer">July 26, 2021&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Jiang WU</footer>
+  <a class="entry-link" aria-label="post link to [kubernetes]如何查看node的kubelet配置" href="https://unprobug.com/post/kubernetes/how_to_check_kubelet_of_node/"></a>
+</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">

@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>vagrant | Unpro BUG</title>
+<title>kubernetes技巧 | Unpro BUG</title>
 <meta name="keywords" content="" />
 <meta name="description" content="Unpro BUG">
 <meta name="author" content="Jiang WU">
-<link rel="canonical" href="https://unprobug.com/tags/vagrant/" />
+<link rel="canonical" href="https://unprobug.com/tags/kubernetes%E6%8A%80%E5%B7%A7/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.35cd0f65a15cafa92372b8313deef5960aae04b90ad722f2bbf509eb0468137e.css" integrity="sha256-Nc0PZaFcr6kjcrgxPe71lgquBLkK1yLyu/UJ6wRoE34=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://unprobug.com/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://unprobug.com/favicon-16x16.png">
@@ -19,8 +19,8 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <meta name="generator" content="Hugo 0.86.0" />
-<link rel="alternate" type="application/rss+xml" href="https://unprobug.com/tags/vagrant/index.xml">
-<link rel="alternate" hreflang="en" href="https://unprobug.com/tags/vagrant/" />
+<link rel="alternate" type="application/rss+xml" href="https://unprobug.com/tags/kubernetes%E6%8A%80%E5%B7%A7/index.xml">
+<link rel="alternate" hreflang="en" href="https://unprobug.com/tags/kubernetes%E6%8A%80%E5%B7%A7/" />
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QNSJ3VFPDD"></script>
 <script>
@@ -32,15 +32,15 @@ if (!doNotTrack) {
 	gtag('config', 'G-QNSJ3VFPDD', { 'anonymize_ip': false });
 }
 </script>
-<meta property="og:title" content="vagrant" />
+<meta property="og:title" content="kubernetes技巧" />
 <meta property="og:description" content="Unpro BUG" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://unprobug.com/tags/vagrant/" /><meta property="og:image" content="https://unprobug.com/papermod-cover.png"/>
+<meta property="og:url" content="https://unprobug.com/tags/kubernetes%E6%8A%80%E5%B7%A7/" /><meta property="og:image" content="https://unprobug.com/papermod-cover.png"/>
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://unprobug.com/papermod-cover.png"/>
 
-<meta name="twitter:title" content="vagrant"/>
+<meta name="twitter:title" content="kubernetes技巧"/>
 <meta name="twitter:description" content="Unpro BUG"/>
 
 </head>
@@ -162,21 +162,21 @@ if (!doNotTrack) {
 </header>
 <main class="main"> 
 <header class="page-header"><div class="breadcrumbs"><a href="https://unprobug.com/">Home</a>&nbsp;»&nbsp;<a href="https://unprobug.com/tags/">Tags</a></div>
-  <h1>vagrant</h1>
+  <h1>kubernetes技巧</h1>
 </header>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>[Vagrant] 入门</h2>
+    <h2>[kubernetes]如何查看node的kubelet配置</h2>
   </header>
   <section class="entry-content">
-    <p>1.什么是vagrant 具体定义大家可以参见官方网站: https://www.vagrantup.com/.
-那么大白话vagrant 到底是干嘛的, 它和docker有点像, 甚至部分操作用过docker 的人都会觉得似曾相识, 我们知道, docker 是来管理container的, 而vagrant是来管理虚拟机的, 比如你有个tomcat, 这个tomcat可以运行在docker容器上, 我们通过docker来管理这个容器, 而这个docker容器可以运行在VM上, 而vagrant可以是用来管理这个VM的, 当然, 这个只是一个宽泛的解释, 具体还是需要深入理解其本质.
-2.如何工作 vagrant 通过不同的provider 来对虚拟机软件的API进行调用, 例如 virtualbox, 那么vagrant 通过virtualbox provider 来操作VM. 也就省去了我们手动创建的麻烦 3. 安装  更多方式: https://www.vagrantup.com/downloads
-  Linux/Ubuntu  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - sudo apt-add-repository &#34;deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main&#34; sudo apt-get update &amp;&amp; sudo apt-get install vagrant   Windows 这里注意，如果你使用virtualbox或者vmware,　并且运行你普通使用创建vm没问题，那么你只需要根据上面的链接安装vagrant, 如果你不要 因为vagrant需要hyper-v, 所以你要打开自己的windows hyper-v, 传送门 然后根据上面的下载地址，下载安装...</p>
+    <p>0. 前言 有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?
+1. 先说结论 查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口
+api/vi/nodes/&lt;node_name&gt;/proxy/cofigz 2. 举个栗子 例如我们有这样一个集群:
+test@node-01:~&gt; kubectl get nodes -o wide NAME STATUS ROLES AGE VERSION INTERNAL-IP EXTERNAL-IP OS-IMAGE KERNEL-VERSION CONTAINER-RUNTIME master-0-01 Ready control-plane,master 16h v1.21.1 10.0.10.9 &lt;none&gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-1-01 Ready control-plane,master 16h v1.21.1 10.0.10.10 &lt;none&gt; SUSE Linux Enterprise Server 15 SP2 5.3.18-24.67-default containerd://1.4.4 master-2-01 Ready control-plane,master 16h v1....</p>
   </section>
-  <footer class="entry-footer">July 14, 2021&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Jiang WU</footer>
-  <a class="entry-link" aria-label="post link to [Vagrant] 入门" href="https://unprobug.com/post/vagrant/vagrant_for_beginners/"></a>
+  <footer class="entry-footer">July 26, 2021&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Jiang WU</footer>
+  <a class="entry-link" aria-label="post link to [kubernetes]如何查看node的kubelet配置" href="https://unprobug.com/post/kubernetes/how_to_check_kubelet_of_node/"></a>
 </article>
     </main>
     <footer class="footer">
