@@ -10,6 +10,11 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="about me"
                 href="https://unprobug.com/about-me/categories/"
                 />
@@ -19,6 +24,11 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://unprobug.com/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -34,6 +44,11 @@
                 />
     <xhtml:link
                 rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/series/"
+                />
+    <xhtml:link
+                rel="alternate"
                 hreflang="about me"
                 href="https://unprobug.com/about-me/series/"
                 />
@@ -43,6 +58,11 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://unprobug.com/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="cn"
+                href="https://unprobug.com/cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
