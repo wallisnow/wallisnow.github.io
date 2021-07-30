@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://unprobug.com/post/ansible/key_value_list_to_dict/</loc>
+    <lastmod>2021-07-30T07:42:09+03:00</lastmod>
+  </url><url>
     <loc>https://unprobug.com/tags/ansible/</loc>
     <lastmod>2021-07-30T07:42:09+03:00</lastmod>
   </url><url>
@@ -28,9 +31,6 @@
                 hreflang="en"
                 href="https://unprobug.com/categories/"
                 />
-  </url><url>
-    <loc>https://unprobug.com/post/ansible/key_value_list_to_dict/</loc>
-    <lastmod>2021-07-30T07:42:09+03:00</lastmod>
   </url><url>
     <loc>https://unprobug.com/post/</loc>
     <lastmod>2021-07-30T07:42:09+03:00</lastmod>

@@ -182,14 +182,15 @@ if (!doNotTrack) {
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>key value list 转 dictionary</h2>
+    <h2>[ansible]key value list 转 dictionary</h2>
   </header>
   <section class="entry-content">
     <p>需求 这两天我需要kubernetes 上面没有ready 的pod列出来, 然后对这些pod进行操作, 又要用到ansible, 思来想去不如来个map, 那么 python 或者ansible里面叫dict
-输入 changed: [localhost -&gt; fd00:eccd:0:a0a::5] =&gt; { &#34;ansible_facts&#34;: { &#34;discovered_interpreter_python&#34;: &#34;/usr/bin/python&#34; }, &#34;changed&#34;: true, &#34;cmd&#34;: &#34;/usr/local/bin/kubectl get pods -n kube-system --field-selector spec.nodeName=poolalpha-worker-0-efggjjp-ansibd-01 -o custom-columns=NAME:.metadata.name,\&#34;IS_READY\&#34;:.status.containerStatuses[].ready --no-headers&#34;, &#34;delta&#34;: &#34;0:00:00.475861&#34;, &#34;end&#34;: &#34;2021-07-29 19:37:41.515968&#34;, &#34;invocation&#34;: { &#34;module_args&#34;: { &#34;_raw_params&#34;: &#34;/usr/local/bin/kubectl get pods -n kube-system --field-selector spec.nodeName=poolalpha-worker-0-efggjjp-ansibd-01 -o custom-columns=NAME:.metadata.name,\&#34;IS_READY\&#34;:.status.containerStatuses[].ready --no-headers&#34;, &#34;_uses_shell&#34;: true, &#34;argv&#34;: null, &#34;chdir&#34;: null, &#34;creates&#34;: null, &#34;executable&#34;: null, &#34;removes&#34;: null, &#34;stdin&#34;: null, &#34;stdin_add_newline&#34;: true, &#34;strip_empty_ends&#34;: true, &#34;warn&#34;: true } }, &#34;rc&#34;: 0, &#34;start&#34;: &#34;2021-07-29 19:37:41....</p>
+输入 这里有一个 kubectl get pods 得出的结果, 使用ansible的 shell, 我们需要处理其中的stdout, 或者stdout_lines
+changed: [localhost -&gt; fd00:eccd:0:a0a::5] =&gt; { &#34;ansible_facts&#34;: { &#34;discovered_interpreter_python&#34;: &#34;/usr/bin/python&#34; }, &#34;changed&#34;: true, &#34;cmd&#34;: &#34;/usr/local/bin/kubectl get pods -n kube-system --field-selector spec.nodeName=poolalpha-worker-0-efggjjp-ansibd-01 -o custom-columns=NAME:.metadata.name,\&#34;IS_READY\&#34;:.status.containerStatuses[].ready --no-headers&#34;, &#34;delta&#34;: &#34;0:00:00.475861&#34;, &#34;end&#34;: &#34;2021-07-29 19:37:41.515968&#34;, &#34;invocation&#34;: { &#34;module_args&#34;: { &#34;_raw_params&#34;: &#34;/usr/local/bin/kubectl get pods -n kube-system --field-selector spec.nodeName=poolalpha-worker-0-efggjjp-ansibd-01 -o custom-columns=NAME:.metadata.name,\&#34;IS_READY\&#34;:.status.containerStatuses[].ready --no-headers&#34;, &#34;_uses_shell&#34;: true, &#34;argv&#34;: null, &#34;chdir&#34;: null, &#34;creates&#34;: null, &#34;executable&#34;: null, &#34;removes&#34;: null, &#34;stdin&#34;: null, &#34;stdin_add_newline&#34;: true, &#34;strip_empty_ends&#34;: true, &#34;warn&#34;: true } }, &#34;rc&#34;: 0, &#34;start&#34;: &#34;2021-07-29 19:37:41....</p>
   </section>
   <footer class="entry-footer">July 30, 2021&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Jiang WU</footer>
-  <a class="entry-link" aria-label="post link to key value list 转 dictionary" href="https://unprobug.com/post/ansible/key_value_list_to_dict/"></a>
+  <a class="entry-link" aria-label="post link to [ansible]key value list 转 dictionary" href="https://unprobug.com/post/ansible/key_value_list_to_dict/"></a>
 </article>
 
 <article class="post-entry"> 
