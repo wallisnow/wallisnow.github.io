@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Unprofessional BUG</title>
+  <icon>https://unprobug.com/icon.png</icon>
+  
+  <link href="https://unprobug.com/atom.xml" rel="self"/>
+  
+  <link href="https://unprobug.com/"/>
+  <updated>2022-06-08T18:32:05.046Z</updated>
+  <id>https://unprobug.com/</id>
+  
+  <author>
+    <name>Jiang WU</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>runc 入门使用</title>
+    <link href="https://unprobug.com/2022/05/09/runc/runc-hello-md/"/>
+    <id>https://unprobug.com/2022/05/09/runc/runc-hello-md/</id>
+    <published>2022-05-09T13:15:42.000Z</published>
+    <updated>2022-06-08T18:32:05.046Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;runc的个人理解&quot;&gt;&lt;a href=&quot;#runc的个人理解&quot; class=&quot;headerlink&quot; title=&quot;runc的个人理解&quot;&gt;&lt;/a&gt;runc的个人理解&lt;/h2&gt;&lt;p&gt;结合日常应用, 我个人的理解就是一个运行于docker和操作系统之间的中间件, 也就是说docker 通过调用runc, 达到对容器的操作, 也就是说docker的所有操作也可以通过直接操作runc完成:&lt;br&gt;docker —-&amp;gt; runc —–&amp;gt; os&lt;/p&gt;
+&lt;h2 id=&quot;测试环境&quot;&gt;&lt;a href=&quot;#测试环境&quot; class=&quot;headerlink&quot; title=&quot;测试环境&quot;&gt;&lt;/a&gt;测试环境&lt;/h2&gt;&lt;p&gt;假设此时, 我们有一个容器, 这里我们需要新建一个rootfs文件夹, runc也就是使用此文件内的文件为容器内部代码, 如果你观察, 其实就是docker 镜像内部文件&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#解包一个本地容器内容&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;mkdir&lt;/span&gt; rootfs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo docker &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; $(sudo docker create busybox:1.34.1)|tar -C ./rootfs -xvf -&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;然后生成runc配置文件config.json, 配合上面的rootfs内部文件, 就可以用runc 启动容器了&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;runc spec &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="runc" scheme="https://unprobug.com/categories/runc/"/>
+    
+    
+    <category term="runc" scheme="https://unprobug.com/tags/runc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang 解决错误 File is not goimports -ed (goimports)</title>
+    <link href="https://unprobug.com/2022/05/06/go/error/fix-file-is-not-goimports-md/"/>
+    <id>https://unprobug.com/2022/05/06/go/error/fix-file-is-not-goimports-md/</id>
+    <published>2022-05-06T12:14:48.000Z</published>
+    <updated>2022-06-23T12:20:24.458Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;当我们引入&lt;code&gt;golangci-lint&lt;/code&gt;, 然后检查代码格式, 检查时会产生如下问题&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;File is not &lt;span class=&quot;string&quot;&gt;`goimports`&lt;/span&gt;-ed (goimports)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个是因为我们的代码中部分 import 格式并不符合linting 的规范&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="golang" scheme="https://unprobug.com/categories/golang/"/>
+    
+    
+    <category term="golang" scheme="https://unprobug.com/tags/golang/"/>
+    
+    <category term="error" scheme="https://unprobug.com/tags/error/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jenkins pipeline加载groovy脚本</title>
+    <link href="https://unprobug.com/2022/03/08/cicd/jenkins/jenkins-load-groovy-script-md/"/>
+    <id>https://unprobug.com/2022/03/08/cicd/jenkins/jenkins-load-groovy-script-md/</id>
+    <published>2022-03-08T19:05:37.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h2&gt;&lt;p&gt;有时我们希望将jenkins pipeline的代码模块化, 比如将一些公共常用的方法写在一个groovy文件中然后在Jenkinsfile 调用, 那么这时, 我们可以使用&lt;a href=&quot;http://unprobug.com/2021/11/10/cicd/jenkins/jenkins-sharedlib-tuto/&quot;&gt;Jenkins Shared Libraries&lt;/a&gt;, 但有时我们的代码量不大时, 可以考虑直接加载脚本&lt;/p&gt;
+&lt;h2 id=&quot;插件-Pipeline-Groovy&quot;&gt;&lt;a href=&quot;#插件-Pipeline-Groovy&quot; class=&quot;headerlink&quot; title=&quot;插件 Pipeline: Groovy&quot;&gt;&lt;/a&gt;插件 Pipeline: Groovy&lt;/h2&gt;&lt;p&gt;首先安装Pipeline: Groovy插件, 详见&lt;a href=&quot;https://plugins.jenkins.io/workflow-cps/&quot;&gt;Pipeline: Groovy&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;如何使用&quot;&gt;&lt;a href=&quot;#如何使用&quot; class=&quot;headerlink&quot; title=&quot;如何使用&quot;&gt;&lt;/a&gt;如何使用&lt;/h2&gt;&lt;p&gt;假设此时你有一个工程是这样:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;project-with-tests$ tree -L 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── Jenkinsfile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── logs.groovy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── pom.xml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;├── src&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;└── target&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/categories/jenkins/"/>
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/tags/jenkins/"/>
+    
+    <category term="pipeline" scheme="https://unprobug.com/tags/pipeline/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中实现简单异步回调函数</title>
+    <link href="https://unprobug.com/2022/03/06/go/basic/go-golang-timeout-md/"/>
+    <id>https://unprobug.com/2022/03/06/go/basic/go-golang-timeout-md/</id>
+    <published>2022-03-06T18:16:13.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;回调函数&quot;&gt;&lt;a href=&quot;#回调函数&quot; class=&quot;headerlink&quot; title=&quot;回调函数&quot;&gt;&lt;/a&gt;回调函数&lt;/h2&gt;&lt;p&gt;回调函数是指当程序执行到某种条件时, 执行一些action, 比如, 当程序正确执行完成, 回调某函数, 这里比较绕的地方就是, 此程序是异步执行, 主线程是不关心它是否结束, 所以也就产生了回调的概念&lt;/p&gt;
+&lt;h2 id=&quot;使用场景&quot;&gt;&lt;a href=&quot;#使用场景&quot; class=&quot;headerlink&quot; title=&quot;使用场景&quot;&gt;&lt;/a&gt;使用场景&lt;/h2&gt;&lt;p&gt;假设我们有一个程序A正在运行, 同时, 我们希望异步执行B程序, 执行完成后让用户知道, B执行完成, 比如打印什么的, 那么这种情况就是一种异步回调&lt;/p&gt;
+&lt;h2 id=&quot;代码&quot;&gt;&lt;a href=&quot;#代码&quot; class=&quot;headerlink&quot; title=&quot;代码&quot;&gt;&lt;/a&gt;代码&lt;/h2&gt;&lt;p&gt;我们模拟一个这样的场景, task线程比如我们就是一个耗时的操作sleep, 那么我们希望B正常执行完成后, 回调函数, 控制台输出成功&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="golang" scheme="https://unprobug.com/categories/golang/"/>
+    
+    
+    <category term="golang" scheme="https://unprobug.com/tags/golang/"/>
+    
+    <category term="channel" scheme="https://unprobug.com/tags/channel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go 限制并行线程数</title>
+    <link href="https://unprobug.com/2022/03/05/go/basic/go-golang-limit-parallel-execution-md/"/>
+    <id>https://unprobug.com/2022/03/05/go/basic/go-golang-limit-parallel-execution-md/</id>
+    <published>2022-03-05T12:57:47.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;go中的多线程&quot;&gt;&lt;a href=&quot;#go中的多线程&quot; class=&quot;headerlink&quot; title=&quot;go中的多线程&quot;&gt;&lt;/a&gt;go中的多线程&lt;/h2&gt;&lt;p&gt;go 中启动线程很方便, 只需要在函数前 写go 关键字即可&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(i &lt;span class=&quot;type&quot;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    log.Println(i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;lt;-ch&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;那么这里就有了问题, 如何限定多少个线程同时执行(或者说同批次)? 在生产环境, 为了避免并发数量过高, 引发:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;panic: too many concurrent operations on a single file or socket&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;那么我们需要解决这一问题&lt;/p&gt;
+&lt;h2 id=&quot;问题一-如何保证所有线程都能结束&quot;&gt;&lt;a href=&quot;#问题一-如何保证所有线程都能结束&quot; class=&quot;headerlink&quot; title=&quot;问题一, 如何保证所有线程都能结束&quot;&gt;&lt;/a&gt;问题一, 如何保证所有线程都能结束&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="golang" scheme="https://unprobug.com/categories/golang/"/>
+    
+    
+    <category term="golang" scheme="https://unprobug.com/tags/golang/"/>
+    
+    <category term="thread" scheme="https://unprobug.com/tags/thread/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go中实现简单的 Object builder</title>
+    <link href="https://unprobug.com/2022/03/03/go/pattern/go-golang-object-builder-md/"/>
+    <id>https://unprobug.com/2022/03/03/go/pattern/go-golang-object-builder-md/</id>
+    <published>2022-03-03T09:12:22.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;对象建造者&quot;&gt;&lt;a href=&quot;#对象建造者&quot; class=&quot;headerlink&quot; title=&quot;对象建造者&quot;&gt;&lt;/a&gt;对象建造者&lt;/h2&gt;&lt;p&gt;在Java 中我们常用建造者模式来构建对象, 相较于传统构造器, 它更加灵活, 但是需要前期编码更多, 那么我们是否可以也在go中实现呢?&lt;/p&gt;
+&lt;h2 id=&quot;Java中的对象builder&quot;&gt;&lt;a href=&quot;#Java中的对象builder&quot; class=&quot;headerlink&quot; title=&quot;Java中的对象builder&quot;&gt;&lt;/a&gt;Java中的对象builder&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="golang" scheme="https://unprobug.com/categories/golang/"/>
+    
+    
+    <category term="golang" scheme="https://unprobug.com/tags/golang/"/>
+    
+    <category term="builder" scheme="https://unprobug.com/tags/builder/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go struct的指针</title>
+    <link href="https://unprobug.com/2022/03/02/go/basic/go-struct-pointer-basic-md/"/>
+    <id>https://unprobug.com/2022/03/02/go/basic/go-struct-pointer-basic-md/</id>
+    <published>2022-03-02T11:54:42.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;指针概述&quot;&gt;&lt;a href=&quot;#指针概述&quot; class=&quot;headerlink&quot; title=&quot;指针概述&quot;&gt;&lt;/a&gt;指针概述&lt;/h2&gt;&lt;p&gt;最早接触指针是大学学C的时候, 印象最深刻的就是说指针即地址, 随着工作经验的增加, 知道了,程序初始化对象时, (通常)会在内存中开辟空间来存放这个对象, 那在计算机处理这个对象时,必然需要知道这个对象所在的位置, 那么这个位置就是指针, 也就是你买了个房子, 住了进去, 那么为了让别人知道你家在哪, 那得有个地址.&lt;/p&gt;
+&lt;h2 id=&quot;再次理解&quot;&gt;&lt;a href=&quot;#再次理解&quot; class=&quot;headerlink&quot; title=&quot;再次理解&quot;&gt;&lt;/a&gt;再次理解&lt;/h2&gt;&lt;p&gt;假设我们有一个对象 User1, 在内存中有一片自己的值空间:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;||||| User1 |||||&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;| id   1        |&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;| name  LaoWang |&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;|||||||||||||||||&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-----------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;|  0xc00000e038 |&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="golang" scheme="https://unprobug.com/categories/golang/"/>
+    
+    
+    <category term="golang" scheme="https://unprobug.com/tags/golang/"/>
+    
+    <category term="pointer" scheme="https://unprobug.com/tags/pointer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>lsof的权限问题</title>
+    <link href="https://unprobug.com/2022/02/03/linux/command/lsof-permission-study-md/"/>
+    <id>https://unprobug.com/2022/02/03/linux/command/lsof-permission-study-md/</id>
+    <published>2022-02-03T08:34:51.000Z</published>
+    <updated>2022-06-08T18:32:05.046Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;lsof-了解&quot;&gt;&lt;a href=&quot;#lsof-了解&quot; class=&quot;headerlink&quot; title=&quot;lsof 了解&quot;&gt;&lt;/a&gt;lsof 了解&lt;/h2&gt;&lt;p&gt;linux 一切皆文件, lsof – lists open files, 所以, 这个命令理论上, 你可以看到所有打开的文件, 也就是所有打开的东西, 比如, 文本, 网络链接, 进程, 等&lt;/p&gt;
+&lt;h2 id=&quot;常见用法&quot;&gt;&lt;a href=&quot;#常见用法&quot; class=&quot;headerlink&quot; title=&quot;常见用法&quot;&gt;&lt;/a&gt;常见用法&lt;/h2&gt;&lt;p&gt;不是本文讨论重点, 可以自行谷歌&lt;br&gt;&lt;a href=&quot;https://www.cnblogs.com/sparkdev/p/10271351.html&quot;&gt;常见用法&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;实验&quot;&gt;&lt;a href=&quot;#实验&quot; class=&quot;headerlink&quot; title=&quot;实验&quot;&gt;&lt;/a&gt;实验&lt;/h2&gt;&lt;p&gt;一般教程往往给定了root权限, 所以当使用lsof时, 可以看到所有文件信息, 但是生产环境不一定, 这里我们做一个实验, 创建一个普通用户, 对比另一个用户执行lsof&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一个用户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo useradd tester&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo passwd tester&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;模拟一个进程来占用文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;touch&lt;/span&gt; test.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;tail&lt;/span&gt; -f test.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#为了方便观察, 先删了这个文件, 注意, 此时tail 还在访问这个文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;rm&lt;/span&gt; test.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://unprobug.com/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://unprobug.com/tags/linux/"/>
+    
+    <category term="lsof" scheme="https://unprobug.com/tags/lsof/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Makefile入门</title>
+    <link href="https://unprobug.com/2022/02/03/linux/command/makefile-basic-md/"/>
+    <id>https://unprobug.com/2022/02/03/linux/command/makefile-basic-md/</id>
+    <published>2022-02-03T08:34:51.000Z</published>
+    <updated>2022-06-08T18:32:05.046Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Makefile-是什么&quot;&gt;&lt;a href=&quot;#Makefile-是什么&quot; class=&quot;headerlink&quot; title=&quot;Makefile 是什么&quot;&gt;&lt;/a&gt;Makefile 是什么&lt;/h2&gt;&lt;p&gt;不写具体定义, 个人理解就是一个通用的将代码组织起来的工具, 在java中我们常用maven或者gradle, 他们可以帮助我们编译java, 打包, 配置等等. 而makefile则是将这个过程交给开发人员本身, 用目标文件和它是怎么来的定义make的过程, 比如, 我们有一个, 可执行文件a, 这个a引用了b, 那么我们定义这个a的依赖过程, 就可以写在make中&lt;/p&gt;
+&lt;h2 id=&quot;举个栗子&quot;&gt;&lt;a href=&quot;#举个栗子&quot; class=&quot;headerlink&quot; title=&quot;举个栗子&quot;&gt;&lt;/a&gt;举个栗子&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://unprobug.com/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://unprobug.com/tags/linux/"/>
+    
+    <category term="makefile" scheme="https://unprobug.com/tags/makefile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何查看容器对应的宿主上打开的文件</title>
+    <link href="https://unprobug.com/2022/02/03/linux/command/linux-command-how-to-check-container-opened-file-md/"/>
+    <id>https://unprobug.com/2022/02/03/linux/command/linux-command-how-to-check-container-opened-file-md/</id>
+    <published>2022-02-03T08:15:30.000Z</published>
+    <updated>2022-06-08T18:32:05.046Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;查看容器对应的pid&quot;&gt;&lt;a href=&quot;#查看容器对应的pid&quot; class=&quot;headerlink&quot; title=&quot;查看容器对应的pid&quot;&gt;&lt;/a&gt;查看容器对应的pid&lt;/h2&gt;&lt;h3 id=&quot;查看容器id&quot;&gt;&lt;a href=&quot;#查看容器id&quot; class=&quot;headerlink&quot; title=&quot;查看容器id&quot;&gt;&lt;/a&gt;查看容器id&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker ps &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;b71e02952ed1        postgres:13         &lt;span class=&quot;string&quot;&gt;&amp;quot;docker-entrypoint.s…&amp;quot;&lt;/span&gt;   2 weeks ago         Up 2 weeks          0.0.0.0:5432-&amp;gt;5432/tcp   docker_db_1 &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;查看容器对应的宿主pid&quot;&gt;&lt;a href=&quot;#查看容器对应的宿主pid&quot; class=&quot;headerlink&quot; title=&quot;查看容器对应的宿主pid&quot;&gt;&lt;/a&gt;查看容器对应的宿主pid&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;通过 docker container top&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ docker container top b71e02952ed1 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 20969               20950               0                   tammi19             ?                   00:00:28            postgres &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21228               20969               0                   tammi19             ?                   00:00:00            postgres: checkpointer &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21229               20969               0                   tammi19             ?                   00:00:16            postgres: background writer &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21230               20969               0                   tammi19             ?                   00:00:16            postgres: walwriter &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21231               20969               0                   tammi19             ?                   00:00:23            postgres: autovacuum launcher &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21233               20969               0                   tammi19             ?                   00:00:47            postgres: stats collector &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;999                 21234               20969               0                   tammi19             ?                   00:00:00            postgres: logical replication launcher &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="linux" scheme="https://unprobug.com/categories/linux/"/>
+    
+    
+    <category term="docker" scheme="https://unprobug.com/tags/docker/"/>
+    
+    <category term="linux" scheme="https://unprobug.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[Jenkins Job DSL]jenkins pipeline 编写共享库</title>
+    <link href="https://unprobug.com/2021/11/10/cicd/jenkins/jenkins-sharedlib-tuto/"/>
+    <id>https://unprobug.com/2021/11/10/cicd/jenkins/jenkins-sharedlib-tuto/</id>
+    <published>2021-11-10T07:47:09.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Jenkins-Shared-Libraries&quot;&gt;&lt;a href=&quot;#Jenkins-Shared-Libraries&quot; class=&quot;headerlink&quot; title=&quot;Jenkins Shared Libraries&quot;&gt;&lt;/a&gt;Jenkins Shared Libraries&lt;/h2&gt;&lt;p&gt;使用Jenkins pipeline时, 我们有时不希望代码过于混乱, 代码过于重复,比如一个公用方法, 公用类我们希望它是编写一次, 然后被共享, 但是在Job DSL Plugin 1.60, 以前, 我们可以通过注入共享的groovy文件来达到目的, 但是新版本由于安全问题 &lt;a href=&quot;https://github.com/jenkinsci/job-dsl-plugin/wiki/Script-Security&quot;&gt;Script-Security&lt;/a&gt;, 这种注入的方法被关闭, 如若没有管理员权限开放, 这种方法是不可以使用了:&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;To avoid loading arbitrary code from the workspace without approval, the script directory is not added to the classpath and additional classpath entries are not supported when security is enabled. Thus importing classes from the workspace is not possible and the “Additional Classpath” option is not available.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;如何使用和扩展-Shared-Libraries&quot;&gt;&lt;a href=&quot;#如何使用和扩展-Shared-Libraries&quot; class=&quot;headerlink&quot; title=&quot;如何使用和扩展 Shared Libraries&quot;&gt;&lt;/a&gt;如何使用和扩展 Shared Libraries&lt;/h2&gt;&lt;p&gt;官网介绍的比较清楚: &lt;a href=&quot;https://www.jenkins.io/zh/doc/book/pipeline/shared-libraries/&quot;&gt;传送门&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;接着上面官网的例子, 实际应用中需要注意的几个点:&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/categories/jenkins/"/>
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/tags/jenkins/"/>
+    
+    <category term="intellij" scheme="https://unprobug.com/tags/intellij/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[intellij] intellj无鼠标常用操作</title>
+    <link href="https://unprobug.com/2021/10/26/idea/intellij/intellij-no-mouse-tips-1/"/>
+    <id>https://unprobug.com/2021/10/26/idea/intellij/intellij-no-mouse-tips-1/</id>
+    <published>2021-10-26T06:06:12.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这些操作前提是你没自己改过默认设置, 我都是在linux ubuntu 下使用, windows和macOS, 会略有不同. 这些东西就是用多了就熟练了, 没什么技巧&lt;/p&gt;
+&lt;h2 id=&quot;操作1-查看最近操作的文件&quot;&gt;&lt;a href=&quot;#操作1-查看最近操作的文件&quot; class=&quot;headerlink&quot; title=&quot;操作1: 查看最近操作的文件&quot;&gt;&lt;/a&gt;操作1: 查看最近操作的文件&lt;/h2&gt;&lt;p&gt;查看最近操作的文件列表&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Ctrl+E&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;查看最近操作的文件及内容&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Ctrl+Shift+E&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="intellij" scheme="https://unprobug.com/categories/intellij/"/>
+    
+    
+    <category term="intellij" scheme="https://unprobug.com/tags/intellij/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins pipeline 中的环境变量</title>
+    <link href="https://unprobug.com/2021/10/22/cicd/jenkins/jenkins-environment-vras/"/>
+    <id>https://unprobug.com/2021/10/22/cicd/jenkins/jenkins-environment-vras/</id>
+    <published>2021-10-22T08:06:31.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这里Jenkins pipeline中的环境变量就是操作系统的环境变量, 和你在linux 中执行export一个变量是一样的, 其类型为String，不同的是，这个变量是位于这个pipeline生命周期内,也就是说pipeline结束,这个env就没有了&lt;/p&gt;
+&lt;h1 id=&quot;如何查看Jenkins-的环境变量&quot;&gt;&lt;a href=&quot;#如何查看Jenkins-的环境变量&quot; class=&quot;headerlink&quot; title=&quot;如何查看Jenkins 的环境变量&quot;&gt;&lt;/a&gt;如何查看Jenkins 的环境变量&lt;/h1&gt;&lt;h2 id=&quot;直接通过访问master节点的env-vars-html&quot;&gt;&lt;a href=&quot;#直接通过访问master节点的env-vars-html&quot; class=&quot;headerlink&quot; title=&quot;直接通过访问master节点的env-vars.html&quot;&gt;&lt;/a&gt;直接通过访问master节点的env-vars.html&lt;/h2&gt;&lt;p&gt;直接通过访问master节点的env-vars.html, 例如 &lt;code&gt;http://&amp;lt;HOST&amp;gt;/env-vars.html/&lt;/code&gt;, 你可以看到所有当前的环境变量, 但是这些环境变量只是jenkins此时预制的环境变量&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/categories/jenkins/"/>
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/tags/jenkins/"/>
+    
+    <category term="pipeline" scheme="https://unprobug.com/tags/pipeline/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[jenkins]Intellij jenkins pipeline代码高亮设置</title>
+    <link href="https://unprobug.com/2021/10/22/cicd/jenkins/how-to-highlight-jenkins-pipeline-code/"/>
+    <id>https://unprobug.com/2021/10/22/cicd/jenkins/how-to-highlight-jenkins-pipeline-code/</id>
+    <published>2021-10-22T07:13:50.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h1&gt;&lt;p&gt;在CICD的建设中, jenkins的pipeline代码一般是脚本的形式存在, 作为一个开发人员, 我们往往熟悉了idea给我们提供的代码高亮和验证功能, 那么是否可以实现代码高亮? 答案是可以, 但是并没有我们写传统java, Python等代码时那么完善, 不过总被没有强&lt;/p&gt;
+&lt;h1 id=&quot;方法&quot;&gt;&lt;a href=&quot;#方法&quot; class=&quot;headerlink&quot; title=&quot;方法&quot;&gt;&lt;/a&gt;方法&lt;/h1&gt;&lt;h2 id=&quot;配置pipeline代码让groovy可以识别&quot;&gt;&lt;a href=&quot;#配置pipeline代码让groovy可以识别&quot; class=&quot;headerlink&quot; title=&quot;配置pipeline代码让groovy可以识别&quot;&gt;&lt;/a&gt;配置pipeline代码让groovy可以识别&lt;/h2&gt;&lt;p&gt;在Intellij 的setting中, 找到File types, 然后按下图让Intellij识别你的Jenkinsfile为groovy文件&lt;br&gt;&lt;img src=&quot;https://res.cloudinary.com/djpkulbas/image/upload/v1634887503/blog/jenkins/jenkins1_lwce9g.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/categories/jenkins/"/>
+    
+    
+    <category term="jenkins" scheme="https://unprobug.com/tags/jenkins/"/>
+    
+    <category term="intellij" scheme="https://unprobug.com/tags/intellij/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[ansible]add_host模块使用</title>
+    <link href="https://unprobug.com/2021/10/07/ansible/how-to-add-host/"/>
+    <id>https://unprobug.com/2021/10/07/ansible/how-to-add-host/</id>
+    <published>2021-10-07T07:48:08.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h1&gt;&lt;p&gt;有时在使用ansible时, 有一些需求需要动态的加入一些host, 比如临时创建两台虚拟机, 在创建之前你也不知道他们的ip, 而在创建之后, 你需要用ansible进行一系列操作.这时把host写进内存就是一个比较好的方法.&lt;/p&gt;
+&lt;h1 id=&quot;add-host-模块&quot;&gt;&lt;a href=&quot;#add-host-模块&quot; class=&quot;headerlink&quot; title=&quot;add_host 模块&quot;&gt;&lt;/a&gt;add_host 模块&lt;/h1&gt;&lt;p&gt;这个模块就是ansible预置的模块, 提供动态添加host, 更直接的讲就是可以直接修改inventory文件, 当然这个inventory 文件并不是真正你使用的inventory, 而是内存中的inventory&lt;/p&gt;
+&lt;h1 id=&quot;例子&quot;&gt;&lt;a href=&quot;#例子&quot; class=&quot;headerlink&quot; title=&quot;例子&quot;&gt;&lt;/a&gt;例子&lt;/h1&gt;&lt;h2 id=&quot;测试环境&quot;&gt;&lt;a href=&quot;#测试环境&quot; class=&quot;headerlink&quot; title=&quot;测试环境&quot;&gt;&lt;/a&gt;测试环境&lt;/h2&gt;&lt;p&gt;原本的inventory 文件&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[new]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.50.146&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.50.109&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这时, 写一个简单的play&lt;/p&gt;
+&lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;---&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;bullet&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;world&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;attr&quot;&gt;hosts:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;new&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;attr&quot;&gt;gather_facts:&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;attr&quot;&gt;tasks:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;bullet&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;hosts&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;attr&quot;&gt;debug:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;attr&quot;&gt;msg:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&amp;quot;&lt;span class=&quot;template-variable&quot;&gt;&amp;#123;&amp;#123;item&amp;#125;&amp;#125;&lt;/span&gt; &lt;span class=&quot;template-variable&quot;&gt;&amp;#123;&amp;#123;hostvars[item].inventory_hostname&amp;#125;&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      &lt;span class=&quot;attr&quot;&gt;loop:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&amp;quot;&lt;span class=&quot;template-variable&quot;&gt;&amp;#123;&amp;#123; play_hosts &amp;#125;&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="ansible" scheme="https://unprobug.com/categories/ansible/"/>
+    
+    
+    <category term="ansible" scheme="https://unprobug.com/tags/ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>链接pod时 出现Error from server error dialing backend remote error - tls - internal error</title>
+    <link href="https://unprobug.com/2021/10/04/kubernetes/how-to-approve-certificate/"/>
+    <id>https://unprobug.com/2021/10/04/kubernetes/how-to-approve-certificate/</id>
+    <published>2021-10-04T13:32:15.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;问题出现&quot;&gt;&lt;a href=&quot;#问题出现&quot; class=&quot;headerlink&quot; title=&quot;问题出现&quot;&gt;&lt;/a&gt;问题出现&lt;/h1&gt;&lt;p&gt;发现这个问题是因为我需要查看部分CrashLoopBackOff 的pod日志, 当执行 &lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl -n kube-system exec -it openstack-cloud-controller-manager-vrdld -- /bin/bash&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;时报错, 错误如下:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Error from server: error dialing backend: remote error: tls: internal error&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/categories/kubernetes/"/>
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[centos8] 使用DNF安装git</title>
+    <link href="https://unprobug.com/2021/08/02/centos/install_git_centos8/"/>
+    <id>https://unprobug.com/2021/08/02/centos/install_git_centos8/</id>
+    <published>2021-08-02T05:11:47.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;这里使用dnf, dnf是下一代的包管理工具&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="git" scheme="https://unprobug.com/categories/git/"/>
+    
+    
+    <category term="centos8" scheme="https://unprobug.com/tags/centos8/"/>
+    
+    <category term="git" scheme="https://unprobug.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[ansible]key value list 转 dictionary</title>
+    <link href="https://unprobug.com/2021/07/30/ansible/key_value_list_to_dict/"/>
+    <id>https://unprobug.com/2021/07/30/ansible/key_value_list_to_dict/</id>
+    <published>2021-07-30T01:42:09.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;需求&quot;&gt;&lt;a href=&quot;#需求&quot; class=&quot;headerlink&quot; title=&quot;需求&quot;&gt;&lt;/a&gt;需求&lt;/h1&gt;&lt;p&gt;这两天我需要kubernetes 上面没有ready 的pod列出来, 然后对这些pod进行操作, 又要用到ansible, 思来想去不如来个map, 那么 python 或者ansible里面叫dict&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="ansible" scheme="https://unprobug.com/categories/ansible/"/>
+    
+    
+    <category term="ansible" scheme="https://unprobug.com/tags/ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[kubernetes]如何查看node的kubelet配置</title>
+    <link href="https://unprobug.com/2021/07/26/kubernetes/how_to_check_kubelet_of_node/"/>
+    <id>https://unprobug.com/2021/07/26/kubernetes/how_to_check_kubelet_of_node/</id>
+    <published>2021-07-26T05:06:28.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;0-前言&quot;&gt;&lt;a href=&quot;#0-前言&quot; class=&quot;headerlink&quot; title=&quot;0. 前言&quot;&gt;&lt;/a&gt;0. 前言&lt;/h1&gt;&lt;p&gt;有时因为一些原因, 我们需要修改kubelet 的配置, 新版本的kubernetes就是修改 config.yml, 那么这里有一个问题, 你怎么知道你的kubelet 已经生效了?&lt;/p&gt;
+&lt;h1 id=&quot;1-先说结论&quot;&gt;&lt;a href=&quot;#1-先说结论&quot; class=&quot;headerlink&quot; title=&quot;1. 先说结论&quot;&gt;&lt;/a&gt;1. 先说结论&lt;/h1&gt;&lt;p&gt;查询方法为先开启kube proxy然后使用 kubernetes 提供的查询接口&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;api/vi/nodes/&amp;lt;node_name&amp;gt;/proxy/cofigz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/categories/kubernetes/"/>
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[docker] centos8 安装docker</title>
+    <link href="https://unprobug.com/2021/07/19/docker/how_to_install_docker_in_centos8/"/>
+    <id>https://unprobug.com/2021/07/19/docker/how_to_install_docker_in_centos8/</id>
+    <published>2021-07-19T05:16:26.000Z</published>
+    <updated>2022-06-08T18:32:05.042Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;1-前置条件&quot;&gt;&lt;a href=&quot;#1-前置条件&quot; class=&quot;headerlink&quot; title=&quot;1. 前置条件&quot;&gt;&lt;/a&gt;1. 前置条件&lt;/h1&gt;&lt;p&gt;准备一台centos 8 的机器, 我这里用的是vagrant安装的centos8镜像&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="docker" scheme="https://unprobug.com/categories/docker/"/>
+    
+    
+    <category term="centos8" scheme="https://unprobug.com/tags/centos8/"/>
+    
+    <category term="docker" scheme="https://unprobug.com/tags/docker/"/>
+    
+  </entry>
+  
+</feed>
