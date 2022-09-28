@@ -6,7 +6,7 @@
   <link href="https://unprobug.com/atom.xml" rel="self"/>
   
   <link href="https://unprobug.com/"/>
-  <updated>2022-06-08T18:32:05.046Z</updated>
+  <updated>2022-09-28T11:23:48.176Z</updated>
   <id>https://unprobug.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次kubelet假死的问题排查</title>
+    <link href="https://unprobug.com/2022/09/28/kubernetes/debug_kubelet_dead_oom/"/>
+    <id>https://unprobug.com/2022/09/28/kubernetes/debug_kubelet_dead_oom/</id>
+    <published>2022-09-28T10:36:05.000Z</published>
+    <updated>2022-09-28T11:23:48.176Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;发现问题&quot;&gt;&lt;a href=&quot;#发现问题&quot; class=&quot;headerlink&quot; title=&quot;发现问题&quot;&gt;&lt;/a&gt;发现问题&lt;/h2&gt;&lt;p&gt;今天在升级kubernetes集群时，被升级节点突然开始变得异常缓慢，ssh需要很久很久, 但是却可以ping的通.</summary>
+        
+      
+    
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/categories/kubernetes/"/>
+    
+    
+    <category term="kubernetes" scheme="https://unprobug.com/tags/kubernetes/"/>
+    
+    <category term="linux" scheme="https://unprobug.com/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>runc 入门使用</title>
@@ -456,27 +483,6 @@
     
     
     <category term="kubernetes" scheme="https://unprobug.com/tags/kubernetes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[docker] centos8 安装docker</title>
-    <link href="https://unprobug.com/2021/07/19/docker/how_to_install_docker_in_centos8/"/>
-    <id>https://unprobug.com/2021/07/19/docker/how_to_install_docker_in_centos8/</id>
-    <published>2021-07-19T05:16:26.000Z</published>
-    <updated>2022-06-08T18:32:05.042Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;1-前置条件&quot;&gt;&lt;a href=&quot;#1-前置条件&quot; class=&quot;headerlink&quot; title=&quot;1. 前置条件&quot;&gt;&lt;/a&gt;1. 前置条件&lt;/h1&gt;&lt;p&gt;准备一台centos 8 的机器, 我这里用的是vagrant安装的centos8镜像&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="docker" scheme="https://unprobug.com/categories/docker/"/>
-    
-    
-    <category term="centos8" scheme="https://unprobug.com/tags/centos8/"/>
-    
-    <category term="docker" scheme="https://unprobug.com/tags/docker/"/>
     
   </entry>
   
