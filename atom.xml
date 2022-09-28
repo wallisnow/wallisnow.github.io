@@ -6,7 +6,7 @@
   <link href="https://unprobug.com/atom.xml" rel="self"/>
   
   <link href="https://unprobug.com/"/>
-  <updated>2022-09-28T11:26:03.924Z</updated>
+  <updated>2022-09-28T11:28:00.552Z</updated>
   <id>https://unprobug.com/</id>
   
   <author>
@@ -21,13 +21,13 @@
     <link href="https://unprobug.com/2022/09/28/kubernetes/debug_kubelet_dead_oom/"/>
     <id>https://unprobug.com/2022/09/28/kubernetes/debug_kubelet_dead_oom/</id>
     <published>2022-09-28T10:36:05.000Z</published>
-    <updated>2022-09-28T11:26:03.924Z</updated>
+    <updated>2022-09-28T11:28:00.552Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;发现问题&quot;&gt;&lt;a href=&quot;#发现问题&quot; class=&quot;headerlink&quot; title=&quot;发现问题&quot;&gt;&lt;/a&gt;发现问题&lt;/h2&gt;&lt;p&gt;今天在升级kubernetes集群时，被升级节点突然开始变得异常缓慢，ssh需要很久很久, 但是却可以ping的通. 有问题如下:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;节点缓慢&lt;/li&gt;
-&lt;li&gt;可以ping 不可以ssh&lt;/li&gt;
+&lt;li&gt;可以ping ssh很慢&lt;/li&gt;
 &lt;li&gt;健康节点上 kubectl describe node, 可以看到 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Conditions:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  Type                 Status    LastHeartbeatTime                 LastTransitionTime                Reason              Message&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ----                 ------    -----------------                 ------------------                ------              -------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  NetworkUnavailable   False     Wed, 28 Sep 2022 07:08:34 +0000   Wed, 28 Sep 2022 07:08:34 +0000   CalicoIsUp          Calico is running on this node&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  MemoryPressure       Unknown   Wed, 28 Sep 2022 07:46:33 +0000   Wed, 28 Sep 2022 07:47:36 +0000   NodeStatusUnknown   Kubelet stopped posting node status.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  DiskPressure         Unknown   Wed, 28 Sep 2022 07:46:33 +0000   Wed, 28 Sep 2022 07:47:36 +0000   NodeStatusUnknown   Kubelet stopped posting node status.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  PIDPressure          Unknown   Wed, 28 Sep 2022 07:46:33 +0000   Wed, 28 Sep 2022 07:47:36 +0000   NodeStatusUnknown   Kubelet stopped posting node status.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  Ready                Unknown   Wed, 28 Sep 2022 07:46:33 +0000   Wed, 28 Sep 2022 07:47:36 +0000   NodeStatusUnknown   Kubelet stopped posting node status.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Addresses:&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&quot;排查问题&quot;&gt;&lt;a href=&quot;#排查问题&quot; class=&quot;headerlink&quot; title=&quot;排查问题&quot;&gt;&lt;/a&gt;排查问题&lt;/h2&gt;&lt;ol&gt;
